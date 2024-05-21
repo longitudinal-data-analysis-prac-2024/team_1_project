@@ -11,8 +11,10 @@ background info
 > How does parental and peer support influence emotional and cognitive outcomes of the pupils during the first year of secondary school?
 
 ## Hypothesis
+Low parental and peer support would be associated with worse emotional and cognitive outcomes
 
 # Method
+
 ## Dataset
 ## Variables
 ## Measures
