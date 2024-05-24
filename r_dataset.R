@@ -118,5 +118,5 @@ sdq_emotion_w3<- sdq_emotion %>%
 sdq_emotion_w3 %>% 
   select(ID, emotion_score_w3)
 
-# ii) Brief Self-Control Scale (BSCS) + SDQ inattention/ hyperactivity subscale: behavioral-regulation outcomes
+# ii) Brief Self-Control Scale (BSCS) + SDQ inattention/ hyperactivity subscale: behavioral-regulation outcome
 
