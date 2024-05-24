@@ -82,6 +82,7 @@ peersupport_w3 <- loneliness_recode %>%
 peersupport_w3 %>% 
   select(ID, peersupport_score_W3)
 
+#---------------------------------------------------------------------------
 #DV: 
 # i) SDQ: emotional outcomes subscale dataframe
 sdq_emotion <- as_tibble(dataset_1) %>% 
@@ -117,5 +118,5 @@ sdq_emotion_w3<- sdq_emotion %>%
 sdq_emotion_w3 %>% 
   select(ID, emotion_score_w3)
 
-# ii) Brief Self-Control Scale (BSCS): cognitive outcomes
+# ii) Brief Self-Control Scale (BSCS) + SDQ inattention/ hyperactivity subscale: behavioral-regulation outcomes
 
