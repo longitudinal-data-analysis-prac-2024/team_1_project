@@ -89,6 +89,9 @@ df <- df %>% mutate(emo_w2 = rowMeans(select(., c('C2_B3', 'C2_B8', 'C2_B13', 'C
 df <- df %>% mutate(emo_w3 = rowMeans(select(., c('C3_B3', 'C3_B8', 'C3_B13', 'C3_B16', 'C3_B24')), na.rm = T)*5)
 
 #---------------dv2: behavioral regulation (hyperactivity + self-control) ----------------------------------------
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> a51a1bc25edefc32aed75f179343d772047aefd5
