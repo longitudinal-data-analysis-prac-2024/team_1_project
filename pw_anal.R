@@ -54,15 +54,14 @@ df <- rv_vars(df,8, c('C3_PWHA2','C3_PWHA5','C3_PWHA6','C3_PWHA7','C3_PWHA9','C3
 
 
 #3) calculate parental warmth score for each child in each wave 
-##method 1: remove the row if NA 
 df <- df %>%
-  mutate(pw1 = rowMeans(select(., c('C1_PWHA2', 'C1_PWHA5', 'C1_PWHA6', 'C1_PWHA7', 'C1_PWHA9', 'C1_PWHA10')),na.rm = T) * 6)
+  mutate(pw1 = round(rowMeans(select(., c('C1_PWHA2', 'C1_PWHA5', 'C1_PWHA6', 'C1_PWHA7', 'C1_PWHA9', 'C1_PWHA10')),na.rm = T) * 6))
 
 df <- df %>%
-  mutate(pw2 = rowMeans(select(., c('C2_PWHA2', 'C2_PWHA5', 'C2_PWHA6', 'C2_PWHA7', 'C2_PWHA9', 'C2_PWHA10')),na.rm = T) * 6)
+  mutate(pw2 = round(rowMeans(select(., c('C2_PWHA2', 'C2_PWHA5', 'C2_PWHA6', 'C2_PWHA7', 'C2_PWHA9', 'C2_PWHA10')),na.rm = T) * 6))
 
 df <- df %>%
-  mutate(pw3 = rowMeans(select(., c('C3_PWHA2', 'C3_PWHA5', 'C3_PWHA6', 'C3_PWHA7', 'C3_PWHA9', 'C3_PWHA10')),na.rm = T) * 6)
+  mutate(pw3 = round(rowMeans(select(., c('C3_PWHA2', 'C3_PWHA5', 'C3_PWHA6', 'C3_PWHA7', 'C3_PWHA9', 'C3_PWHA10')),na.rm = T) * 6))
 
 #--------------dv1:emotional symptoms (calculated from the sdq)-----------------
 
@@ -84,14 +83,9 @@ df <- recode_emo(df, c('C1_B3', 'C1_B8', 'C1_B13', 'C1_B16', 'C1_B24'))
 df <- recode_emo(df, c('C2_B3', 'C2_B8', 'C2_B13', 'C2_B16', 'C2_B24'))
 df <- recode_emo(df, c('C3_B3', 'C3_B8', 'C3_B13', 'C3_B16', 'C3_B24'))
 
-df <- df %>% mutate(emo_w1 = rowMeans(select(., c('C1_B3', 'C1_B8', 'C1_B13', 'C1_B16', 'C1_B24')), na.rm = T)*5)
-df <- df %>% mutate(emo_w2 = rowMeans(select(., c('C2_B3', 'C2_B8', 'C2_B13', 'C2_B16', 'C2_B24')), na.rm = T)*5)
-df <- df %>% mutate(emo_w3 = rowMeans(select(., c('C3_B3', 'C3_B8', 'C3_B13', 'C3_B16', 'C3_B24')), na.rm = T)*5)
+df <- df %>% mutate(emo_w1 = round(rowMeans(select(., c('C1_B3', 'C1_B8', 'C1_B13', 'C1_B16', 'C1_B24')), na.rm = T)*5))
+df <- df %>% mutate(emo_w2 = round(rowMeans(select(., c('C2_B3', 'C2_B8', 'C2_B13', 'C2_B16', 'C2_B24')), na.rm = T)*5))
+df <- df %>% mutate(emo_w3 = round(rowMeans(select(., c('C3_B3', 'C3_B8', 'C3_B13', 'C3_B16', 'C3_B24')), na.rm = T)*5))
 
 #---------------dv2: behavioral regulation (hyperactivity + self-control) ----------------------------------------
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> a51a1bc25edefc32aed75f179343d772047aefd5
