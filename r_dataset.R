@@ -5,7 +5,62 @@ library(tidyverse)
 dataset_1 <- read.spss("q1_dataset.sav", to.data.frame = T)
 dataset_1
 
-#ii. Peer support influence emotional and cognitive outcomes
+#------------------i. Maternal Warmth-------------------------------------------
+recode_par <- function(df, columns) {
+  for (col in columns) {
+    col_sym <- ensym(col) 
+    df <- df %>%
+      mutate(!!col_sym := recode(!!col_sym,
+                                 "Always" = 1,
+                                 "Almost always" = 2,
+                                 "Fairly often" = 3,
+                                 "About half" = 4,
+                                 "Not too often" = 5,
+                                 "Almost never" = 6,
+                                 "Never" = 7
+      ))
+  }
+  return(df)
+}
+
+df <- recode_par(df, c('C1_PWHA1','C1_PWHA3','C1_PWHA4','C1_PWHA8','C1_PWHA2','C1_PWHA5','C1_PWHA6','C1_PWHA7','C1_PWHA9','C1_PWHA10','C1_PWHB1','C1_PWHB3','C1_PWHB4','C1_PWHB8','C1_PWHB2','C1_PWHB5','C1_PWHB6', 'C1_PWH7', 'C1_PWHB9', 'C1_PWHB10'))
+
+df <- recode_par(df, c('C2_PWHA1','C2_PWHA3','C2_PWHA4','C2_PWHA8','C2_PWHA2','C2_PWHA5','C2_PWHA6','C2_PWHA7','C2_PWHA9','C2_PWHA10','C2_PWHB1','C2_PWHB3','C2_PWHB4','C2_PWHB8','C2_PWHB2','C2_PWHB5','C2_PWHB6', 'C2_PWHB7', 'C2_PWHB9', 'C2_PWHB10'))
+
+df <- recode_par(df, c('C3_PWHA2','C3_PWHA5','C3_PWHA6','C3_PWHA7','C3_PWHA9','C3_PWHA10','C3_PWHB2','C3_PWHB5','C3_PWHB6', 'C3_PWHB9', 'C3_PWHB10'))
+
+
+#2) reverse code parental warmth and hostility (w1,2,3)
+
+rv_vars <- function(df, max_p_one, columns){
+  for (col in columns){
+    col_sym <- ensym(col)
+    for (i in 1:nrow(df)){
+      df[[col_sym]][i] <- max_p_one - df[[col_sym]][i]
+    }
+  }
+  return(df)
+}
+
+df <- rv_vars(df,8, c('C1_PWHA1','C1_PWHA3','C1_PWHA4','C1_PWHA8','C1_PWHA2','C1_PWHA5','C1_PWHA6','C1_PWHA7','C1_PWHA9','C1_PWHA10','C1_PWHB1','C1_PWHB3','C1_PWHB4','C1_PWHB8','C1_PWHB2','C1_PWHB5','C1_PWHB6', 'C1_PWH7', 'C1_PWHB9', 'C1_PWHB10'))
+
+df <- rv_vars(df,8, c('C2_PWHA1','C2_PWHA3','C2_PWHA4','C2_PWHA8','C2_PWHA2','C2_PWHA5','C2_PWHA6','C2_PWHA7','C2_PWHA9','C2_PWHA10','C2_PWHB1','C2_PWHB3','C2_PWHB4','C2_PWHB8','C2_PWHB2','C2_PWHB5','C2_PWHB6', 'C2_PWHB7', 'C2_PWHB9', 'C2_PWHB10'))
+
+df <- rv_vars(df,8, c('C3_PWHA2','C3_PWHA5','C3_PWHA6','C3_PWHA7','C3_PWHA9','C3_PWHA10','C3_PWHB2','C3_PWHB5','C3_PWHB6', 'C3_PWHB9', 'C3_PWHB10'))
+
+
+#3) calculate parental warmth score for each child in each wave 
+df <- df %>%
+  mutate(pw1 = round(rowMeans(select(., c('C1_PWHA2', 'C1_PWHA5', 'C1_PWHA6', 'C1_PWHA7', 'C1_PWHA9', 'C1_PWHA10')),na.rm = T) * 6))
+
+df <- df %>%
+  mutate(pw2 = round(rowMeans(select(., c('C2_PWHA2', 'C2_PWHA5', 'C2_PWHA6', 'C2_PWHA7', 'C2_PWHA9', 'C2_PWHA10')),na.rm = T) * 6))
+
+df <- df %>%
+  mutate(pw3 = round(rowMeans(select(., c('C3_PWHA2', 'C3_PWHA5', 'C3_PWHA6', 'C3_PWHA7', 'C3_PWHA9', 'C3_PWHA10')),na.rm = T) * 6))
+
+
+#------------------ii. Peer support influence emotional and cognitive outcomes------------------------------------------------------
 
 #IV: 
 # Peer Support variable - loneliness
