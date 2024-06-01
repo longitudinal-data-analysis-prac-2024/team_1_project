@@ -85,7 +85,7 @@ df <- df %>% rename(pw3 = mean_score)
 
 #IV: 
 # Peer Support variable - loneliness
-peersupport <- as_tibble(dataset_1)
+peersupport <- as_tibble(df)
 
 #i. reverse code loneliness 
 peersupport <- peersupport %>%
@@ -159,7 +159,7 @@ peersupport_w3 %>%
   select(ID, peersupport_score_W3)
 
 #----------------DV : SDQ - emotional outcomes subscale dataframe--------------------
-sdq_emotion <- as_tibble(dataset_1) %>% 
+sdq_emotion <- as_tibble(df) %>% 
   select(ID, C1_B3, C1_B8, C1_B13, C1_B16, C1_B24, C2_B3, C2_B8, C2_B13, C2_B16, C2_B24, C3_B3, C3_B8, C3_B13, C3_B16, C3_B24) %>%
   unique() %>%
   arrange(ID) %>% 
