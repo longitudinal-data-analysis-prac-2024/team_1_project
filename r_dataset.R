@@ -242,6 +242,33 @@ self_control_recode <- self_control %>%
     mutate(across(where(is.factor), as.numeric))
   )
 
+
+#iii. composite self-control scores:(higher score = more self-control)
+
+#WAVE 1:
+self_control_w1 <- self_control_recode %>% 
+  mutate(
+    self_control_score_w1 = rowMeans(select(., C1_SControl1:C1_SControl13), na.rm = TRUE))
+
+self_control_w1 %>% 
+  select(ID, self_control_score_w1)
+
+#WAVE 2:
+self_control_w2 <- self_control_recode %>% 
+  mutate(
+    self_control_score_w2 = rowMeans(select(., C2_SControl1:C2_SControl13), na.rm = TRUE))
+
+self_control_w2 %>% 
+  select(ID, self_control_score_w2)
+
+#WAVE 3:
+self_control_w3 <- self_control_recode %>% 
+  mutate(
+    self_control_score_w3 = rowMeans(select(., C3_SControl1:C3_SControl13), na.rm = TRUE))
+
+self_control_w3 %>% 
+  select(ID, self_control_score_w3)
+
 #---------------DV: Brief Self-Control Scale (BSCS) + SDQ hyperactivity sub-scale: behavioral-regulation outcome----------------
 #1) self control 
 
@@ -269,30 +296,4 @@ df <- df %>% rename(sc3 = mean_score)
 #2) hyperactivity
 
 main
-
 print(self_control_recode)
-#iii. composite self-control scores:(higher score = more self-control)
-
-#WAVE 1:
-self_control_w1 <- self_control_recode %>% 
-  mutate(
-    self_control_score_w1 = rowMeans(select(., C1_SControl1:C1_SControl13), na.rm = TRUE))
-
-self_control_w1 %>% 
-  select(ID, self_control_score_w1)
-
-#WAVE 2:
-self_control_w2 <- self_control_recode %>% 
-  mutate(
-    self_control_score_w2 = rowMeans(select(., C2_SControl1:C2_SControl13), na.rm = TRUE))
-
-self_control_w2 %>% 
-  select(ID, self_control_score_w2)
-
-#WAVE 3:
-self_control_w3 <- self_control_recode %>% 
-  mutate(
-    self_control_score_w3 = rowMeans(select(., C3_SControl1:C3_SControl13), na.rm = TRUE))
-
-self_control_w3 %>% 
-  select(ID, self_control_score_w3)
