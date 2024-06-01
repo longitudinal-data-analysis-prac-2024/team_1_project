@@ -158,7 +158,7 @@ peersupport_w3 <- loneliness_recode %>%
 peersupport_w3 %>% 
   select(ID, peersupport_score_W3)
 
-#----------------DV : SDQ - emotional outcomes subscale dataframe--------------------
+#----------------DV : SDQ - emotional outcomes subscale dataframe------------------
 sdq_emotion <- as_tibble(df) %>% 
   select(ID, C1_B3, C1_B8, C1_B13, C1_B16, C1_B24, C2_B3, C2_B8, C2_B13, C2_B16, C2_B24, C3_B3, C3_B8, C3_B13, C3_B16, C3_B24) %>%
   unique() %>%
@@ -192,6 +192,56 @@ sdq_emotion_w3<- sdq_emotion %>%
 sdq_emotion_w3 %>% 
   select(ID, emotion_score_w3)
 
+# ii) Brief Self-Control Scale (BSCS): behavioral-regulation outcome
+  #SDQ inattention: 
+  #i) SDQ: inattention outcomes subscale dataframe
+self_control <- as_tibble(df) %>% 
+  select(ID, C1_SControl1, C1_SControl2, C1_SControl3, C1_SControl4, C1_SControl5, C1_SControl6, C1_SControl7, C1_SControl8, C1_SControl9, C1_SControl10, C1_SControl11, C1_SControl12, C1_SControl13, C2_SControl1, C2_SControl2, C2_SControl3, C2_SControl4, C2_SControl5, C2_SControl6, C2_SControl7, C2_SControl8, C2_SControl9, C2_SControl10, C2_SControl11, C2_SControl12, C2_SControl13, C3_SControl1, C3_SControl2, C3_SControl3, C3_SControl4, C3_SControl5, C3_SControl6, C3_SControl7, C3_SControl8, C3_SControl9, C3_SControl10, C3_SControl11, C3_SControl12, C3_SControl13) %>%
+  unique() %>%
+  arrange(ID)
+
+self_control_recode_func <- function(x) {
+  factor_x <- factor(x, levels = c("Not at all", "Very little", "Somewhat", "Quite a bit", "Very much"), labels = c("1","2","3","4","5"))
+  as.numeric(as.character(factor_x))
+}
+
+self_control <- self_control %>%
+  mutate(across(C1_SControl1:C3_SControl13, self_control_recode_func))
+
+print(self_control)
+
+self_control_recode <- self_control %>% 
+  mutate(
+    C1_SControl2 = recode(C1_SControl2, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl3 = recode(C1_SControl3, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl4 = recode(C1_SControl4, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl5 = recode(C1_SControl5, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl7 = recode(C1_SControl7, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl9 = recode(C1_SControl9, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl10 = recode(C1_SControl10, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl12 = recode(C1_SControl12, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C1_SControl13 = recode(C1_SControl13, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl2 = recode(C2_SControl2, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl3 = recode(C2_SControl3, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl4 = recode(C2_SControl4, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl5 = recode(C2_SControl5, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl7 = recode(C2_SControl7, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl9 = recode(C2_SControl9, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl10 = recode(C2_SControl10, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl12 = recode(C2_SControl2, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C2_SControl13 = recode(C2_SControl13, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl2 = recode(C3_SControl2, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl3 = recode(C3_SControl3, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl4 = recode(C3_SControl4, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl5 = recode(C3_SControl5, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl7 = recode(C3_SControl7, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl9 = recode(C3_SControl9, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl10 = recode(C3_SControl10, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl12 = recode(C3_SControl12, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    C3_SControl13 = recode(C3_SControl13, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
+    mutate(across(where(is.factor), as.numeric))
+  )
+
 #---------------DV: Brief Self-Control Scale (BSCS) + SDQ hyperactivity sub-scale: behavioral-regulation outcome----------------
 #1) self control 
 
@@ -218,4 +268,31 @@ df <- df %>% rename(sc3 = mean_score)
 
 #2) hyperactivity
 
+main
 
+print(self_control_recode)
+#iii. composite self-control scores:(higher score = more self-control)
+
+#WAVE 1:
+self_control_w1 <- self_control_recode %>% 
+  mutate(
+    self_control_score_w1 = rowMeans(select(., C1_SControl1:C1_SControl13), na.rm = TRUE))
+
+self_control_w1 %>% 
+  select(ID, self_control_score_w1)
+
+#WAVE 2:
+self_control_w2 <- self_control_recode %>% 
+  mutate(
+    self_control_score_w2 = rowMeans(select(., C2_SControl1:C2_SControl13), na.rm = TRUE))
+
+self_control_w2 %>% 
+  select(ID, self_control_score_w2)
+
+#WAVE 3:
+self_control_w3 <- self_control_recode %>% 
+  mutate(
+    self_control_score_w3 = rowMeans(select(., C3_SControl1:C3_SControl13), na.rm = TRUE))
+
+self_control_w3 %>% 
+  select(ID, self_control_score_w3)
