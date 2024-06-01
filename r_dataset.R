@@ -2,10 +2,9 @@ library(haven)
 library(foreign)
 library(tidyverse)
 
-dataset_1 <- read.spss("q1_dataset.sav", to.data.frame = T)
-dataset_1
+df <- read.spss("q1_dataset.sav", to.data.frame = T)
 
-#------------------i. Maternal Warmth-------------------------------------------
+#------------------ IV: Maternal Warmth-------------------------------------------
 recode_par <- function(df, columns) {
   for (col in columns) {
     col_sym <- ensym(col) 
@@ -49,22 +48,44 @@ df <- rv_vars(df,8, c('C2_PWHA1','C2_PWHA3','C2_PWHA4','C2_PWHA8','C2_PWHA2','C2
 df <- rv_vars(df,8, c('C3_PWHA2','C3_PWHA5','C3_PWHA6','C3_PWHA7','C3_PWHA9','C3_PWHA10','C3_PWHB2','C3_PWHB5','C3_PWHB6', 'C3_PWHB9', 'C3_PWHB10'))
 
 
-#3) calculate parental warmth score for each child in each wave 
-df <- df %>%
-  mutate(pw1 = round(rowMeans(select(., c('C1_PWHA2', 'C1_PWHA5', 'C1_PWHA6', 'C1_PWHA7', 'C1_PWHA9', 'C1_PWHA10')),na.rm = T) * 6))
+#3) remove NAs and calculate parental warmth score for each child in each wave 
 
-df <- df %>%
-  mutate(pw2 = round(rowMeans(select(., c('C2_PWHA2', 'C2_PWHA5', 'C2_PWHA6', 'C2_PWHA7', 'C2_PWHA9', 'C2_PWHA10')),na.rm = T) * 6))
+cl_df <- function(n, m, df, columns) {
+  df <- df %>%
+    rowwise() %>%
+    mutate(mean_score = ifelse(sum(!is.na(c_across(all_of(columns)))) >= n,
+                               round(rowMeans(across(all_of(columns)) * m, na.rm = TRUE)),
+                               NA)) %>%
+    ungroup()
+  return(df)
+}
 
-df <- df %>%
-  mutate(pw3 = round(rowMeans(select(., c('C3_PWHA2', 'C3_PWHA5', 'C3_PWHA6', 'C3_PWHA7', 'C3_PWHA9', 'C3_PWHA10')),na.rm = T) * 6))
+
+for(ID in length(df$ID)){
+  df <- cl_df(4,6,df,c('C1_PWHA2', 'C1_PWHA5', 'C1_PWHA6', 'C1_PWHA7', 'C1_PWHA9', 'C1_PWHA10'))
+}
+
+df <- df %>% rename(pw1 = mean_score)
 
 
-#------------------ii. Peer support influence emotional and cognitive outcomes------------------------------------------------------
+for(ID in length(df$ID)){
+  df <- cl_df(4,6,df,c('C2_PWHA2', 'C2_PWHA5', 'C2_PWHA6', 'C2_PWHA7', 'C2_PWHA9', 'C2_PWHA10'))
+}
+
+df <- df %>% rename(pw2 = mean_score)
+
+for(ID in length(df$ID)){
+  df <- cl_df(4,6,df,c('C3_PWHA2', 'C3_PWHA5', 'C3_PWHA6', 'C3_PWHA7', 'C3_PWHA9', 'C3_PWHA10'))
+}
+
+df <- df %>% rename(pw3 = mean_score)
+
+
+#------------------IV: Peer support influence emotional and cognitive outcomes------------------------------------------------------
 
 #IV: 
 # Peer Support variable - loneliness
-peersupport <- as_tibble(dataset_1)
+peersupport <- as_tibble(df)
 
 #i. reverse code loneliness 
 peersupport <- peersupport %>%
@@ -137,10 +158,8 @@ peersupport_w3 <- loneliness_recode %>%
 peersupport_w3 %>% 
   select(ID, peersupport_score_W3)
 
-#---------------------------------------------------------------------------
-#DV: 
-# i) SDQ: emotional outcomes subscale dataframe
-sdq_emotion <- as_tibble(dataset_1) %>% 
+#----------------DV : SDQ - emotional outcomes subscale dataframe------------------
+sdq_emotion <- as_tibble(df) %>% 
   select(ID, C1_B3, C1_B8, C1_B13, C1_B16, C1_B24, C2_B3, C2_B8, C2_B13, C2_B16, C2_B24, C3_B3, C3_B8, C3_B13, C3_B16, C3_B24) %>%
   unique() %>%
   arrange(ID) %>% 
@@ -176,7 +195,7 @@ sdq_emotion_w3 %>%
 # ii) Brief Self-Control Scale (BSCS): behavioral-regulation outcome
   #SDQ inattention: 
   #i) SDQ: inattention outcomes subscale dataframe
-self_control <- as_tibble(dataset_1) %>% 
+self_control <- as_tibble(df) %>% 
   select(ID, C1_SControl1, C1_SControl2, C1_SControl3, C1_SControl4, C1_SControl5, C1_SControl6, C1_SControl7, C1_SControl8, C1_SControl9, C1_SControl10, C1_SControl11, C1_SControl12, C1_SControl13, C2_SControl1, C2_SControl2, C2_SControl3, C2_SControl4, C2_SControl5, C2_SControl6, C2_SControl7, C2_SControl8, C2_SControl9, C2_SControl10, C2_SControl11, C2_SControl12, C2_SControl13, C3_SControl1, C3_SControl2, C3_SControl3, C3_SControl4, C3_SControl5, C3_SControl6, C3_SControl7, C3_SControl8, C3_SControl9, C3_SControl10, C3_SControl11, C3_SControl12, C3_SControl13) %>%
   unique() %>%
   arrange(ID)
@@ -222,6 +241,34 @@ self_control_recode <- self_control %>%
     C3_SControl13 = recode(C3_SControl13, `1` = 5, `2` = 4, `3` = 3, `4` = 2, `5` = 1),
     mutate(across(where(is.factor), as.numeric))
   )
+
+#---------------DV: Brief Self-Control Scale (BSCS) + SDQ hyperactivity sub-scale: behavioral-regulation outcome----------------
+#1) self control 
+
+df <- rv_vars(df, 6, c('C1_SControl2', 'C1_SControl3', 'C1_SControl4', 'C1_SControl5', 'C1_SControl7', 'C1_SControl9', 'C1_SControl10', 'C1_SControl12', 'C1_SControl13'))
+
+df <- rv_vars(df, 6, c('C2_SControl2', 'C2_SControl3', 'C2_SControl4', 'C2_SControl5', 'C2_SControl7', 'C2_SControl9', 'C2_SControl10', 'C2_SControl12', 'C2_SControl13'))
+
+df <- rv_vars(df, 6, c('C3_SControl2', 'C3_SControl3', 'C3_SControl4', 'C3_SControl5', 'C3_SControl7', 'C3_SControl9', 'C3_SControl10', 'C3_SControl12', 'C3_SControl13'))
+
+for(ID in length(df$ID)){
+  df <- cl_df(8,1,df,c('C1_SControl1','C1_SControl2', 'C1_SControl3', 'C1_SControl4', 'C1_SControl5', 'C1_SControl7', 'C1_SControl9', 'C1_SControl10', 'C1_SControl12', 'C1_SControl13'))
+}
+df <- df %>% rename(sc1 = mean_score)
+
+for(ID in length(df$ID)){
+  df <- cl_df(8,1,df,c('C2_SControl1','C2_SControl2', 'C2_SControl3', 'C2_SControl4', 'C2_SControl5', 'C2_SControl7', 'C2_SControl9', 'C2_SControl10', 'C2_SControl12', 'C2_SControl13'))
+}
+df <- df %>% rename(sc2 = mean_score)
+
+for(ID in length(df$ID)){
+  df <- cl_df(8,1,df,c('C3_SControl1','C3_SControl2', 'C3_SControl3', 'C3_SControl4', 'C3_SControl5', 'C3_SControl7', 'C3_SControl9', 'C3_SControl10', 'C3_SControl12', 'C3_SControl13'))
+}
+df <- df %>% rename(sc3 = mean_score)
+
+#2) hyperactivity
+
+main
 
 print(self_control_recode)
 #iii. composite self-control scores:(higher score = more self-control)
