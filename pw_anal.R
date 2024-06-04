@@ -85,8 +85,6 @@ for(ID in length(df$ID)){
 
 df <- df %>% rename(pw3 = mean_score)
 
-  
-
 
 #--------------dv1:emotional symptoms (calculated from the sdq)-----------------
 
@@ -112,5 +110,46 @@ df <- df %>% mutate(emo_w1 = round(rowMeans(select(., c('C1_B3', 'C1_B8', 'C1_B1
 df <- df %>% mutate(emo_w2 = round(rowMeans(select(., c('C2_B3', 'C2_B8', 'C2_B13', 'C2_B16', 'C2_B24')), na.rm = T)*5))
 df <- df %>% mutate(emo_w3 = round(rowMeans(select(., c('C3_B3', 'C3_B8', 'C3_B13', 'C3_B16', 'C3_B24')), na.rm = T)*5))
 
-#---------------dv2: behavioral regulation (hyperactivity + self-control) ----------------------------------------
+#------------- dv2: self control -------------------------
+
+
+#--------------------- SEM: PW vs emo ----------------------
+library(lavaan)
+
+m1_urs <- "parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
+          emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
+
+          parental_warmth_w2 ~~ emotion_w2
+          parental_warmth_w3 ~~ emotion_w3"
+
+m1_urs <- sem(m1_urs, data = df)
+
+m1_rs <- "parental_warmth_w3 ~ 1 + a*emotion_w2 + parental_warmth_w2
+          emotion_w3 ~ 1 + a*parental_warmth_w2 + emotion_w2
+
+          parental_warmth_w2 ~~ emotion_w2
+          parental_warmth_w3 ~~ emotion_w3"
+
+m1_rs <- sem(m1_rs, data = df)
+
+anova(m1_urs, m1_rs) 
+
+#---------- SEM: PW vs self-control -----------------
+m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
+          emotion_w3 ~ 1 + parental_warmth_w2 + self_control_w2
+
+          parental_warmth_w2 ~~ self_control_w2
+          parental_warmth_w3 ~~ self_control_w3"
+
+m2_urs <- sem(m2_urs, data = df)
+
+m2_rs <- "parental_warmth_w3 ~ 1 + a*self_control_w2 + parental_warmth_w2
+          emotion_w3 ~ 1 + a*parental_warmth_w2 + self_control_w2
+
+          parental_warmth_w2 ~~ self_control_w2
+          parental_warmth_w3 ~~ self_control_w3"
+
+m2_rs <- sem(m2_rs, data = df)
+
+anova(m2_urs, m2_rs) 
 
