@@ -202,3 +202,56 @@ final_df <- df %>%
 
 final_df
 
+#--------------------- SEM: parental warmth vs emotional symptoms ----------------------
+library(lavaan)
+
+m1_urs <- "parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
+          emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
+          parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
+          emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
+
+          parental_warmth_w2 ~~ emotion_w2
+          parental_warmth_w3 ~~ emotion_w3
+          parental_warmth_w1 ~~ emotion_w1"
+
+m1_urs <- sem(m1_urs, data = final_df)
+summary(m1_urs)
+
+m1_rs <- "parental_warmth_w3 ~ 1 + a*emotion_w2 + parental_warmth_w2
+          emotion_w3 ~ 1 + a*parental_warmth_w2 + emotion_w2
+          parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
+          emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
+
+          parental_warmth_w2 ~~ emotion_w2
+          parental_warmth_w3 ~~ emotion_w3
+          parental_warmth_w1 ~~ emotion_w1"
+
+m1_rs <- sem(m1_rs, data = final_df)
+
+anova(m1_urs, m1_rs) 
+
+#---------- SEM: parental warmth vs self-control -----------------
+m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
+          self_control_w3 ~ 1 + parental_warmth_w2 + self_control_w2
+          parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
+          self_control_w2 ~ 1 + parental_warmth_w1 + self_control_w1
+
+          parental_warmth_w2 ~~ self_control_w2
+          parental_warmth_w3 ~~ self_control_w3
+          parental_warmth_w1 ~~ self_control_w1"
+
+m2_urs <- sem(m2_urs, data = final_df)
+summary(m2_urs)
+
+m2_rs <- "parental_warmth_w3 ~ 1 + a*self_control_w2 + parental_warmth_w2
+          self_control_w3 ~ 1 + a*parental_warmth_w2 + self_control_w2
+          parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
+          self_control_w2 ~ 1 + parental_warmth_w1 + self_control_w1
+
+          parental_warmth_w2 ~~ self_control_w2
+          parental_warmth_w3 ~~ self_control_w3
+          parental_warmth_w1 ~~ self_control_w1"
+
+m2_rs <- sem(m2_rs, data = final_df)
+
+anova(m2_urs, m2_rs) 
