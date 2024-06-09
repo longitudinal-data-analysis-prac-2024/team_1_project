@@ -201,3 +201,4 @@ final_df <- df %>%
   left_join(select(self_control, ID, self_control_w1, self_control_w2, self_control_w3), by = "ID")
 
 final_df
+
