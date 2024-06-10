@@ -201,8 +201,6 @@ final_df <- df %>%
   left_join(select(self_control, ID, self_control_w1, self_control_w2, self_control_w3), by = "ID")
 
 final_df
-<<<<<<< HEAD
-=======
 
 #--------------------- SEM: parental warmth vs emotional symptoms ----------------------
 library(lavaan)
@@ -256,4 +254,7 @@ m2_rs <- "parental_warmth_w3 ~ 1 + a*self_control_w2 + parental_warmth_w2
 
 m2_rs <- sem(m2_rs, data = final_df)
 
+anova(m2_urs, m2_rs) 
+
+#---------- SEM: peer support vs emotional symptoms -----------------
 anova(m2_urs, m2_rs)
