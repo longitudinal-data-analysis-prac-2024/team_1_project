@@ -256,5 +256,4 @@ m2_rs <- "parental_warmth_w3 ~ 1 + a*self_control_w2 + parental_warmth_w2
 
 m2_rs <- sem(m2_rs, data = final_df)
 
-anova(m2_urs, m2_rs) 
->>>>>>> 82c63c977dd85b99ad103de33638f34e7f3a6fe1
+anova(m2_urs, m2_rs)
