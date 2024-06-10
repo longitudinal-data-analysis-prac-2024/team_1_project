@@ -257,3 +257,4 @@ m2_rs <- sem(m2_rs, data = final_df)
 anova(m2_urs, m2_rs) 
 
 #---------- SEM: peer support vs emotional symptoms -----------------
+anova(m2_urs, m2_rs)
