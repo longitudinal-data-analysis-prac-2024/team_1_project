@@ -356,7 +356,7 @@ summary(combined_model)
 #Peer Support and Self-Control: None of the cross-lagged effects are consistently significant in both directions
 
 #________________INTERACTION EFFECT INCLUDED IN MODEL???? _________________
-# Assuming 'final_df' is your dataset and it contains the relevant variables
+# get interaction terms
 final_df$interaction_w1 <- final_df$parental_warmth_w1 * final_df$peer_support_w1
 final_df$interaction_w2 <- final_df$parental_warmth_w2 * final_df$peer_support_w2
 final_df$interaction_w3 <- final_df$parental_warmth_w3 * final_df$peer_support_w3
