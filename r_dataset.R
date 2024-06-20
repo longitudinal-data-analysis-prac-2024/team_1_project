@@ -1,7 +1,8 @@
 library(haven)
 library(foreign)
 library(tidyverse)
-
+library(gt)
+library(psych)
 df <- read.spss("q1_dataset.sav", to.data.frame = T)
 
 #------------------ IV: Maternal Warmth-------------------------------------------
@@ -195,24 +196,59 @@ self_control <- cl_df(13, 1, self_control, c('C3_SControl1', 'C3_SControl2', 'C3
 
 # Create final_df with ID and composite scores
 final_df <- df %>%
-  select(ID, parental_warmth_w1, parental_warmth_w2, parental_warmth_w3) %>%
+  select(ID, parental_warmth_w1, parental_warmth_w2, parental_warmth_w3, Gender, Age_C1) %>%
   left_join(select(loneliness_recode, ID, peer_support_w1, peer_support_w2, peer_support_w3), by = "ID") %>%
   left_join(select(sdq_emotion, ID, emotion_w1, emotion_w2, emotion_w3)) %>% 
   left_join(select(self_control, ID, self_control_w1, self_control_w2, self_control_w3), by = "ID")
 
 final_df
 
+#------------------------DESCRIPTIVE STATISTICS----------------
+# Calculate overall descriptive statistics
+wave1_descriptive <- final_df %>%
+  select(parental_warmth_w1, peer_support_w1, emotion_w1, self_control_w1) %>%
+  describe() %>%
+  as.data.frame() %>%
+  mutate(Variable = row.names(.)) %>%
+  select(Variable, mean, sd)
+
+wave2_descriptive <- final_df %>%
+  select(parental_warmth_w2, peer_support_w2, emotion_w2, self_control_w2) %>%
+  describe() %>%
+  as.data.frame() %>%
+  mutate(Variable = row.names(.)) %>%
+  select(Variable, mean, sd)
+
+wave3_descriptive <- final_df %>%
+  select(parental_warmth_w3, peer_support_w3, emotion_w3, self_control_w3) %>%
+  describe() %>%
+  as.data.frame() %>%
+  mutate(Variable = row.names(.)) %>%
+  select(Variable, mean, sd)
+
+wave1_descriptive$Variable <- c("Parental Warmth Time 1", "Peer Support Time 1", "Emotional Symptoms Time 1", "Self-Control Time 1")
+wave2_descriptive$Variable <- c("Parental Warmth Time 2", "Peer Support Time 2", "Emotional Symptoms Time 2", "Self-Control Time 2")
+wave3_descriptive$Variable <- c("Parental Warmth Time 3", "Peer Support Time 3", "Emotional Symptoms Time 3", "Self-Control Time 3")
+
+combined_descriptive <- bind_rows(wave1_descriptive, wave2_descriptive, wave3_descriptive)
+
+combined_descriptive <- combined_descriptive %>%
+  select(Variable, Mean = mean, SD = sd)
+
+combined_descriptive
 #--------------------- SEM: parental warmth vs emotional symptoms ----------------------
 library(lavaan)
 
-m1_urs <- "parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
-          emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
-          parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
-          emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
+m1_urs <- "
+  parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
+  emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
+  parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
+  emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
 
-          parental_warmth_w2 ~~ emotion_w2
-          parental_warmth_w3 ~~ emotion_w3
-          parental_warmth_w1 ~~ emotion_w1"
+  parental_warmth_w2 ~~ emotion_w2
+  parental_warmth_w3 ~~ emotion_w3
+  parental_warmth_w1 ~~ emotion_w1
+"
 
 m1_urs <- sem(m1_urs, data = final_df)
 summary(m1_urs)
@@ -324,72 +360,3 @@ anova(m4_psb, m4_psb_restricted)
 #_____________ GRAPHS____________________
 library(lavaan)
 library(semPlot)
-
-#model 1:
-layout <- matrix(c(
-  6, 3, 1,  # First row: emotion_w1, emotion_w2, emotion_w3
-  5, 4, 2   # Second row: parental_warmth_w1, parental_warmth_w2, parental_warmth_w3
-), ncol = 3, byrow = TRUE)
-
-semPaths(m1_urs, 
-         what = "std", 
-         layout = layout, 
-         style = "lisrel", 
-         edge.label.cex = 1, 
-         sizeMan = 8, 
-         sizeLat = 10, 
-         nCharNodes = 0, 
-         residuals = FALSE, 
-         intercepts = FALSE, 
-         thresholds = FALSE, 
-         node.width = 1.5, 
-         node.height = 1.5)
-
-#model 2:
-
-semPaths(m2_urs, 
-         what = "std", 
-         layout = layout, 
-         style = "lisrel", 
-         edge.label.cex = 1, 
-         sizeMan = 8, 
-         sizeLat = 10, 
-         nCharNodes = 0, 
-         residuals = FALSE, 
-         intercepts = FALSE, 
-         thresholds = FALSE, 
-         node.width = 1.5, 
-         node.height = 1.5)
- 
-#model 3:
-semPaths(m3_pse, 
-         what = "std", 
-         layout = layout, 
-         style = "lisrel", 
-         edge.label.cex = 1, 
-         sizeMan = 8, 
-         sizeLat = 10, 
-         nCharNodes = 0, 
-         residuals = FALSE, 
-         intercepts = FALSE, 
-         thresholds = FALSE, 
-         node.width = 1.5, 
-         node.height = 1.5)
-
-#model 4:
-semPaths(m4_psb, 
-         what = "std", 
-         layout = layout, 
-         style = "lisrel", 
-         edge.label.cex = 1, 
-         sizeMan = 8, 
-         sizeLat = 10, 
-         nCharNodes = 0, 
-         residuals = FALSE, 
-         intercepts = FALSE, 
-         thresholds = FALSE, 
-         node.width = 1.5, 
-         node.height = 1.5)
-
-#interaction effects??
-
