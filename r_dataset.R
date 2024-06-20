@@ -257,4 +257,128 @@ m2_rs <- sem(m2_rs, data = final_df)
 anova(m2_urs, m2_rs) 
 
 #---------- SEM: peer support vs emotional symptoms -----------------
-anova(m2_urs, m2_rs)
+m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
+          emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
+          peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
+          emotion_w2 ~ 1 + peer_support_w1 + emotion_w1
+
+          peer_support_w2 ~~ emotion_w2
+          peer_support_w3 ~~ emotion_w3
+          peer_support_w1 ~~ emotion_w1"
+
+m3_pse <- sem(m3_pse, data = final_df)
+summary(m3_pse)
+# Test statistic = 70.446
+#cross-lagged effects are not consistently significant in both directions => use unrestricted model
+
+m3_pse_restricted <- "peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
+                      emotion_w3 ~ 1 + b*peer_support_w2 + c*emotion_w2
+                      peer_support_w2 ~ 1 + emotion_w1 + b*peer_support_w1
+                      emotion_w2 ~ 1 + b*peer_support_w1 + c*emotion_w1
+                      
+                      peer_support_w2 ~~ emotion_w2
+                      peer_support_w3 ~~ emotion_w3
+                      peer_support_w1 ~~ emotion_w1
+                      "
+
+m3_pse_restricted <- sem(m3_pse_restricted, data = final_df)
+summary(m3_pse_restricted)
+#Test statistic = 218.131 - has a higher chi-square statistic and more degrees of freedom compared to the unrestricted model, indicating that the fit is worse for the restricted model.
+
+anova(m3_pse, m3_pse_restricted)
+#p <.001, restricted model has poor fit to data
+
+#---------- SEM: peer support vs behavioural (self-control) outcomes-----------------
+
+m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
+          self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
+          peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
+          self_control_w2 ~ 1 + peer_support_w1 + self_control_w1
+
+          peer_support_w2 ~~ self_control_w2
+          peer_support_w3 ~~ self_control_w3
+          peer_support_w1 ~~ self_control_w1"
+
+m4_psb <- sem(m4_psb, data = final_df)
+summary(m4_psb)
+
+# Test statistic = 70.446
+#cross-lagged effects are not consistently significant in both directions => use unrestricted model
+
+m4_psb_restricted <- "peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
+                      self_control_w3 ~ 1 + b*peer_support_w2 + c*self_control_w2
+                      peer_support_w2 ~ 1 + self_control_w1 + b*peer_support_w1
+                      self_control_w2 ~ 1 + b*peer_support_w1 + c*self_control_w1
+                      
+                      peer_support_w2 ~~ self_control_w2
+                      peer_support_w3 ~~ self_control_w3
+                      peer_support_w1 ~~ self_control_w1
+                      "
+
+m4_psb_restricted <- sem(m4_psb_restricted, data = final_df)
+summary(m4_psb_restricted)
+
+anova(m4_psb, m4_psb_restricted)
+#cross-lagged effects are not consistently significant in both directions => use unrestricted model
+
+#__________________COMBINED MODEL???____________________
+combined_model <- "
+  # Parental Warmth and Emotional Symptoms
+  parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
+  emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
+  parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
+  emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
+
+  # Parental Warmth and Self-Control
+  parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
+  self_control_w3 ~ 1 + parental_warmth_w2 + self_control_w2
+  parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
+  self_control_w2 ~ 1 + parental_warmth_w1 + self_control_w1
+
+  # Peer Support and Emotional Symptoms
+  peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
+  emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
+  peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
+  emotion_w2 ~ 1 + peer_support_w1 + emotion_w1
+
+  # Peer Support and Self-Control
+  peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
+  self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
+  peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
+  self_control_w2 ~ 1 + peer_support_w1 + self_control_w1"
+
+combined_model <- sem(combined_model, data = final_df)
+summary(combined_model)
+
+#Parental Warmth and Emotional Symptoms: Only some cross-lagged effects are significant. There is no consistent significance in both directions.
+#Parental Warmth and Self-Control: None of the cross-lagged effects are consistently significant in both directions.
+#Peer Support and Emotional Symptoms: Only one cross-lagged effect is significant. There is no consistent significance in both directions.
+#Peer Support and Self-Control: None of the cross-lagged effects are consistently significant in both directions
+
+#________________INTERACTION EFFECT INCLUDED IN MODEL???? _________________
+# Assuming 'final_df' is your dataset and it contains the relevant variables
+final_df$interaction_w1 <- final_df$parental_warmth_w1 * final_df$peer_support_w1
+final_df$interaction_w2 <- final_df$parental_warmth_w2 * final_df$peer_support_w2
+final_df$interaction_w3 <- final_df$parental_warmth_w3 * final_df$peer_support_w3
+
+interaction_model <- "
+  # Regressions
+  parental_warmth_w3 ~ emotion_w2 + parental_warmth_w2 + interaction_w2
+  emotion_w3 ~ parental_warmth_w2 + emotion_w2 + interaction_w2
+  parental_warmth_w2 ~ emotion_w1 + parental_warmth_w1 + interaction_w1
+  emotion_w2 ~ parental_warmth_w1 + emotion_w1 + interaction_w1
+  
+  self_control_w3 ~ parental_warmth_w2 + self_control_w2 + interaction_w2
+  self_control_w2 ~ parental_warmth_w1 + self_control_w1 + interaction_w1
+  
+  peer_support_w3 ~ emotion_w2 + peer_support_w2 + interaction_w2
+  emotion_w3 ~ peer_support_w2 + emotion_w2 + interaction_w2
+  peer_support_w2 ~ emotion_w1 + peer_support_w1 + interaction_w1
+  emotion_w2 ~ peer_support_w1 + emotion_w1 + interaction_w1
+"
+
+# Fit the interaction model
+interaction_model_fit <- sem(interaction_model, data = final_df)
+summary(interaction_model_fit)
+
+#Interaction between parental warmth and peer support has significant effects on emotional outcomes and peer support at later waves. Higher combined levels of parental warmth and peer support appear to reduce emotional problems and peer support issues + interaction between parental warmth and peer support has a small but significant effect on self-control at a subsequent wave.
