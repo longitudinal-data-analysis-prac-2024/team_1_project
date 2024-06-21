@@ -1,7 +1,8 @@
 library(haven)
 library(foreign)
 library(tidyverse)
-
+library(gt)
+library(psych)
 df <- read.spss("q1_dataset.sav", to.data.frame = T)
 
 #------------------ IV: Maternal Warmth-------------------------------------------
@@ -195,24 +196,59 @@ self_control <- cl_df(13, 1, self_control, c('C3_SControl1', 'C3_SControl2', 'C3
 
 # Create final_df with ID and composite scores
 final_df <- df %>%
-  select(ID, parental_warmth_w1, parental_warmth_w2, parental_warmth_w3) %>%
+  select(ID, parental_warmth_w1, parental_warmth_w2, parental_warmth_w3, Gender, Age_C1) %>%
   left_join(select(loneliness_recode, ID, peer_support_w1, peer_support_w2, peer_support_w3), by = "ID") %>%
   left_join(select(sdq_emotion, ID, emotion_w1, emotion_w2, emotion_w3)) %>% 
   left_join(select(self_control, ID, self_control_w1, self_control_w2, self_control_w3), by = "ID")
 
 final_df
 
+#------------------------DESCRIPTIVE STATISTICS----------------
+# Calculate overall descriptive statistics
+wave1_descriptive <- final_df %>%
+  select(parental_warmth_w1, peer_support_w1, emotion_w1, self_control_w1) %>%
+  describe() %>%
+  as.data.frame() %>%
+  mutate(Variable = row.names(.)) %>%
+  select(Variable, mean, sd)
+
+wave2_descriptive <- final_df %>%
+  select(parental_warmth_w2, peer_support_w2, emotion_w2, self_control_w2) %>%
+  describe() %>%
+  as.data.frame() %>%
+  mutate(Variable = row.names(.)) %>%
+  select(Variable, mean, sd)
+
+wave3_descriptive <- final_df %>%
+  select(parental_warmth_w3, peer_support_w3, emotion_w3, self_control_w3) %>%
+  describe() %>%
+  as.data.frame() %>%
+  mutate(Variable = row.names(.)) %>%
+  select(Variable, mean, sd)
+
+wave1_descriptive$Variable <- c("Parental Warmth Time 1", "Peer Support Time 1", "Emotional Symptoms Time 1", "Self-Control Time 1")
+wave2_descriptive$Variable <- c("Parental Warmth Time 2", "Peer Support Time 2", "Emotional Symptoms Time 2", "Self-Control Time 2")
+wave3_descriptive$Variable <- c("Parental Warmth Time 3", "Peer Support Time 3", "Emotional Symptoms Time 3", "Self-Control Time 3")
+
+combined_descriptive <- bind_rows(wave1_descriptive, wave2_descriptive, wave3_descriptive)
+
+combined_descriptive <- combined_descriptive %>%
+  select(Variable, Mean = mean, SD = sd)
+
+combined_descriptive
 #--------------------- SEM: parental warmth vs emotional symptoms ----------------------
 library(lavaan)
 
-m1_urs <- "parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
-          emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
-          parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
-          emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
+m1_urs <- "
+  parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
+  emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
+  parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
+  emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
 
-          parental_warmth_w2 ~~ emotion_w2
-          parental_warmth_w3 ~~ emotion_w3
-          parental_warmth_w1 ~~ emotion_w1"
+  parental_warmth_w2 ~~ emotion_w2
+  parental_warmth_w3 ~~ emotion_w3
+  parental_warmth_w1 ~~ emotion_w1
+"
 
 m1_urs <- sem(m1_urs, data = final_df)
 summary(m1_urs)
@@ -257,4 +293,70 @@ m2_rs <- sem(m2_rs, data = final_df)
 anova(m2_urs, m2_rs) 
 
 #---------- SEM: peer support vs emotional symptoms -----------------
-anova(m2_urs, m2_rs)
+m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
+          emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
+          peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
+          emotion_w2 ~ 1 + peer_support_w1 + emotion_w1
+
+          peer_support_w2 ~~ emotion_w2
+          peer_support_w3 ~~ emotion_w3
+          peer_support_w1 ~~ emotion_w1"
+
+m3_pse <- sem(m3_pse, data = final_df)
+summary(m3_pse)
+# Test statistic = 70.446
+#cross-lagged effects are not consistently significant in both directions => use unrestricted model
+
+m3_pse_restricted <- "peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
+                      emotion_w3 ~ 1 + b*peer_support_w2 + c*emotion_w2
+                      peer_support_w2 ~ 1 + emotion_w1 + b*peer_support_w1
+                      emotion_w2 ~ 1 + b*peer_support_w1 + c*emotion_w1
+                      
+                      peer_support_w2 ~~ emotion_w2
+                      peer_support_w3 ~~ emotion_w3
+                      peer_support_w1 ~~ emotion_w1
+                      "
+
+m3_pse_restricted <- sem(m3_pse_restricted, data = final_df)
+summary(m3_pse_restricted)
+#Test statistic = 218.131 - has a higher chi-square statistic and more degrees of freedom compared to the unrestricted model, indicating that the fit is worse for the restricted model.
+
+anova(m3_pse, m3_pse_restricted)
+#p <.001, restricted model has poor fit to data
+
+#---------- SEM: peer support vs behavioural (self-control) outcomes-----------------
+
+m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
+          self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
+          peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
+          self_control_w2 ~ 1 + peer_support_w1 + self_control_w1
+
+          peer_support_w2 ~~ self_control_w2
+          peer_support_w3 ~~ self_control_w3
+          peer_support_w1 ~~ self_control_w1"
+
+m4_psb <- sem(m4_psb, data = final_df)
+summary(m4_psb)
+
+# Test statistic = 70.446
+#cross-lagged effects are not consistently significant in both directions => use unrestricted model
+
+m4_psb_restricted <- "peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
+                      self_control_w3 ~ 1 + b*peer_support_w2 + c*self_control_w2
+                      peer_support_w2 ~ 1 + self_control_w1 + b*peer_support_w1
+                      self_control_w2 ~ 1 + b*peer_support_w1 + c*self_control_w1
+                      
+                      peer_support_w2 ~~ self_control_w2
+                      peer_support_w3 ~~ self_control_w3
+                      peer_support_w1 ~~ self_control_w1
+                      "
+
+m4_psb_restricted <- sem(m4_psb_restricted, data = final_df)
+summary(m4_psb_restricted)
+
+anova(m4_psb, m4_psb_restricted)
+#cross-lagged effects are not consistently significant in both directions => use unrestricted model
+
+#_____________ GRAPHS____________________
+library(lavaan)
+library(semPlot)
