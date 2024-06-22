@@ -360,3 +360,30 @@ anova(m4_psb, m4_psb_restricted)
 #_____________ GRAPHS____________________
 library(lavaan)
 library(semPlot)
+
+fit <- sem(m1_urs, data = final_df)
+
+# Define the layout matrix
+layout <- matrix(c(
+  "parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3",
+  "emotion_w1", "emotion_w2", "emotion_w3"
+), nrow = 2, byrow = TRUE)
+
+# Visualize the model with the custom layout
+semPaths(fit, whatLabels = "est", 
+         layout = layout, 
+         edge.label.cex = 1.2, 
+         curvePivot = TRUE, 
+         color = list(lat = "lightblue", man = "lightgreen"), 
+         label.cex = 1.5, 
+         sizeMan = 10,
+         sizeLat = 10,
+         residuals = FALSE, # To hide residuals
+         intercepts = FALSE, # To hide intercepts
+         nCharNodes = 0) # To ensure full variable names are shown
+
+labels <- c(
+  "Emotional\nSymptoms\nTime 1", "Parental\nWarmth\nTime 1", 
+  "Emotional\nSymptoms\nTime 2", "Parental\nWarmth\nTime 2",
+  "Emotional\nSymptoms\nTime 3", "Parental\nWarmth\nTime 3"
+)
