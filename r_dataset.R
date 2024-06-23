@@ -314,7 +314,7 @@ m1_rs <- sem(m1_rs, data = final_df)
 summary(m1_rs)
 
 anova(m1_urs, m1_rs) 
-#Chi-sqaure comparison indicates that unrestricted model is significantly better, so keep the unrestricted model.
+#Chi-square comparison indicates that unrestricted model is significantly better, so keep the unrestricted model.
 
 #---------- SEM: parental warmth vs self-control -----------------
 m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
@@ -371,10 +371,10 @@ m3_pse_restricted <- "peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
 
 m3_pse_restricted <- sem(m3_pse_restricted, data = final_df)
 summary(m3_pse_restricted)
-#Chi-square comparison indicates that unrestricted model is significantly better, so keep the unrestricted model.
+
 
 anova(m3_pse, m3_pse_restricted)
-#p <.001, restricted model has poor fit to data
+#Chi-square comparison indicates that unrestricted model has a poorer fit to data (p< .001), so the unrestricted model is kept. 
 
 #---------- SEM: peer support vs behavioural (self-control) outcomes-----------------
 
@@ -392,9 +392,6 @@ summary(m4_psb)
 stand_m4 <- standardizedsolution(m4_psb)
 stand_m4
 
-# Test statistic = 70.446
-#cross-lagged effects are not consistently significant in both directions => use unrestricted model
-
 m4_psb_restricted <- "peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
                       self_control_w3 ~ 1 + b*peer_support_w2 + c*self_control_w2
                       peer_support_w2 ~ 1 + self_control_w1 + b*peer_support_w1
@@ -409,7 +406,7 @@ m4_psb_restricted <- sem(m4_psb_restricted, data = final_df)
 summary(m4_psb_restricted)
 
 anova(m4_psb, m4_psb_restricted)
-#Chi-square comparison indicates that unrestricted model is significantly better, so keep the unrestricted model.
+#Model comparison indicates that unrestricted model has a poorer fit to data (p< .001), so the unrestricted model is kept.
 
 #_____________ GRAPHS____________________
 
@@ -422,11 +419,6 @@ corr_matrix <- correlation_result$r
 p_matrix <- correlation_result$p
 
 corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main="Correlation plot of all variables in three waves", xlas = 2)
-
-stand_m1
-stand_m2
-stand_m3
-stand_m4
 
 #visualisation matrix
 layout_1 <- matrix(c(
