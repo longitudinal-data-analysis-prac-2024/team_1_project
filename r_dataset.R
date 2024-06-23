@@ -252,6 +252,7 @@ m1_urs <- "
 
 m1_urs <- sem(m1_urs, data = final_df)
 summary(m1_urs)
+stand_m1 <- standardizedsolution(m1_urs)
 
 m1_rs <- "parental_warmth_w3 ~ 1 + a*emotion_w2 + parental_warmth_w2
           emotion_w3 ~ 1 + a*parental_warmth_w2 + emotion_w2
@@ -279,6 +280,8 @@ m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
 m2_urs <- sem(m2_urs, data = final_df)
 summary(m2_urs)
 
+stand_m2 <- standardizedsolution(m2_urs)
+
 m2_rs <- "parental_warmth_w3 ~ 1 + a*self_control_w2 + parental_warmth_w2
           self_control_w3 ~ 1 + a*parental_warmth_w2 + self_control_w2
           parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
@@ -304,6 +307,9 @@ m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
 
 m3_pse <- sem(m3_pse, data = final_df)
 summary(m3_pse)
+stand_m3 <- standardizedsolution(m3_pse)
+stand_m3
+
 # Test statistic = 70.446
 #cross-lagged effects are not consistently significant in both directions => use unrestricted model
 
@@ -337,6 +343,7 @@ m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
 
 m4_psb <- sem(m4_psb, data = final_df)
 summary(m4_psb)
+stand_m4 <- standardizedsolution(m4_psb)
 
 # Test statistic = 70.446
 #cross-lagged effects are not consistently significant in both directions => use unrestricted model
@@ -366,6 +373,11 @@ cor_vars <- final_df[, c("parental_warmth_w1", "parental_warmth_w2", "parental_w
 
 correlation_matrix <- corr.test(cor_vars, use = "pairwise.complete.obs")
 print(correlation_matrix)
+
+stand_m1
+stand_m2
+stand_m3
+stand_m4
 
 #visualisation matrix
 layout_1 <- matrix(c(
@@ -411,7 +423,7 @@ layout_3 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 # Visualize the model with the custom layout
-clm_3 <- semPaths(m3_pse, whatLabels = "est",
+clm_3 <- semPaths(m3_pse, whatLabels = "std",
                   layout = layout_3,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
