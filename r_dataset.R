@@ -3,6 +3,10 @@ library(foreign)
 library(tidyverse)
 library(gt)
 library(psych)
+library(lavaan)
+library(semPlot)
+library(psych)
+
 df <- read.spss("q1_dataset.sav", to.data.frame = T)
 
 #------------------ IV: Maternal Warmth-------------------------------------------
@@ -252,20 +256,21 @@ m1_urs <- "
 
 m1_urs <- sem(m1_urs, data = final_df)
 summary(m1_urs)
-stand_m1 <- standardizedsolution(m1_urs)
 
-m1_rs <- "parental_warmth_w3 ~ 1 + a*emotion_w2 + parental_warmth_w2
-          emotion_w3 ~ 1 + a*parental_warmth_w2 + emotion_w2
-          parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
-          emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
+m1_rs <- "parental_warmth_w3 ~ 1 + emotion_w2 + a*parental_warmth_w2
+          emotion_w3 ~ 1 + parental_warmth_w2 + b*emotion_w2
+          parental_warmth_w2 ~ 1 + emotion_w1 + a*parental_warmth_w1
+          emotion_w2 ~ 1 + parental_warmth_w1 + b*emotion_w1
 
           parental_warmth_w2 ~~ emotion_w2
           parental_warmth_w3 ~~ emotion_w3
           parental_warmth_w1 ~~ emotion_w1"
 
 m1_rs <- sem(m1_rs, data = final_df)
+summary(m1_rs)
 
 anova(m1_urs, m1_rs) 
+#Chi-sqaure comparison indicates that unrestricted model is significantly better, so keep the unrestricted model.
 
 #---------- SEM: parental warmth vs self-control -----------------
 m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
@@ -280,20 +285,20 @@ m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
 m2_urs <- sem(m2_urs, data = final_df)
 summary(m2_urs)
 
-stand_m2 <- standardizedsolution(m2_urs)
-
-m2_rs <- "parental_warmth_w3 ~ 1 + a*self_control_w2 + parental_warmth_w2
-          self_control_w3 ~ 1 + a*parental_warmth_w2 + self_control_w2
-          parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
-          self_control_w2 ~ 1 + parental_warmth_w1 + self_control_w1
+m2_rs <- "parental_warmth_w3 ~ 1 + self_control_w2 + a*parental_warmth_w2
+          self_control_w3 ~ 1 + parental_warmth_w2 + b*self_control_w2
+          parental_warmth_w2 ~ 1 + self_control_w1 + a*parental_warmth_w1
+          self_control_w2 ~ 1 + parental_warmth_w1 + b*self_control_w1
 
           parental_warmth_w2 ~~ self_control_w2
           parental_warmth_w3 ~~ self_control_w3
           parental_warmth_w1 ~~ self_control_w1"
 
 m2_rs <- sem(m2_rs, data = final_df)
+summary(m2_rs)
 
 anova(m2_urs, m2_rs) 
+#Chi-square indicates that unrestricted model is not significantly better, so keep the rs model. 
 
 #---------- SEM: peer support vs emotional symptoms -----------------
 m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
@@ -365,14 +370,16 @@ anova(m4_psb, m4_psb_restricted)
 #cross-lagged effects are not consistently significant in both directions => use unrestricted model
 
 #_____________ GRAPHS____________________
-library(lavaan)
-library(semPlot)
 
-#correlation matrix: correlations between all pairs of variables
+#-------------Plotting correlation matrix-----------------------------
 cor_vars <- final_df[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]
 
-correlation_matrix <- corr.test(cor_vars, use = "pairwise.complete.obs")
-print(correlation_matrix)
+correlation_result <- corr.test(cor_vars, use = "pairwise.complete.obs")
+
+corr_matrix <- correlation_result$r
+p_matrix <- correlation_result$p
+
+corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main="Correlation plot of all variables in three waves", xlas = 2)
 
 stand_m1
 stand_m2
@@ -386,7 +393,7 @@ layout_1 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 # Visualize the model with the custom layout
-clm_1 <- semPaths(m1_urs, whatLabels = "est",
+clm_1 <- semPaths(m1_urs, whatLabels = "std",
          layout = layout_1,
          edge.label.cex = 1.2,
          curvePivot = TRUE,
@@ -404,7 +411,7 @@ layout_2 <- matrix(c(
   "self_control_w1", "self_control_w2", "self_control_w3"
 ), nrow = 2, byrow = TRUE)
 
-clm_2 <- semPaths(m2_urs, whatLabels = "est",
+clm_2 <- semPaths(m2_rs, whatLabels = "std",
                   layout = layout_2,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
@@ -441,7 +448,7 @@ layout_4 <- matrix(c(
   "self_control_w1", "self_control_w2", "self_control_w3"
 ), nrow = 2, byrow = TRUE)
 
-clm_4 <- semPaths(m4_psb, whatLabels = "est",
+clm_4 <- semPaths(m4_psb, whatLabels = "std",
                   layout = layout_4,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
