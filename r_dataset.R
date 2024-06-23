@@ -233,7 +233,7 @@ gender_counts <- final_df %>%
 
 # Create a table with the demographic information
 demographics <- data.frame(
-  Demographic = c('Total Participants', 'Age Range', 'Mean Age', 'Age SD', paste0('Gender: ', gender_counts$Gender)),
+  Demographic = c('Total Participants: ', 'Age Range: ', 'Mean Age: ', 'Age SD: ', paste0('Gender: ', gender_counts$Gender)),
   N = c(total_participants, paste(round(age_range, 2), collapse = " - "), round(mean_age, 2), round(age_sd, 2), as.character(gender_counts$Count))
 )
 
@@ -242,37 +242,48 @@ print(demographics)
 
 #------------------------DESCRIPTIVE STATISTICS----------------
 # Calculate overall descriptive statistics
-wave1_descriptive <- final_df %>%
-  select(parental_warmth_w1, peer_support_w1, emotion_w1, self_control_w1) %>%
+variable_final_df <- final_df %>%
+  rename(
+    "Parental Warmth 1" = parental_warmth_w1,
+    "Peer Support 1" = peer_support_w1,
+    "Emotional Symptoms 1" = emotion_w1,
+    "Self-Control 1" = self_control_w1,
+    "Parental Warmth 2" = parental_warmth_w2,
+    "Peer Support 2" = peer_support_w2,
+    "Emotional Symptoms 2" = emotion_w2,
+    "Self-Control 2" = self_control_w2,
+    "Parental Warmth 3" = parental_warmth_w3,
+    "Peer Support 3" = peer_support_w3,
+    "Emotional Symptoms 3" = emotion_w3,
+    "Self-Control 3" = self_control_w3
+  )
+
+# Calculate overall descriptive statistics for each wave
+wave1_descriptive <- variable_final_df %>%
+  select(`Parental Warmth 1`, `Peer Support 1`, `Emotional Symptoms 1`, `Self-Control 1`) %>%
   describe() %>%
   as.data.frame() %>%
-  mutate(Variable = row.names(.)) %>%
-  select(Variable, mean, sd)
+  select(mean, sd) %>%
+  mutate(mean = round(mean, 2), sd = round(sd, 2))
 
-wave2_descriptive <- final_df %>%
-  select(parental_warmth_w2, peer_support_w2, emotion_w2, self_control_w2) %>%
+wave2_descriptive <- variable_final_df %>%
+  select(`Parental Warmth 2`, `Peer Support 2`, `Emotional Symptoms 2`, `Self-Control 2`) %>%
   describe() %>%
   as.data.frame() %>%
-  mutate(Variable = row.names(.)) %>%
-  select(Variable, mean, sd)
+  select(mean, sd) %>%
+  mutate(mean = round(mean, 2), sd = round(sd, 2))
 
-wave3_descriptive <- final_df %>%
-  select(parental_warmth_w3, peer_support_w3, emotion_w3, self_control_w3) %>%
+wave3_descriptive <- variable_final_df %>%
+  select(`Parental Warmth 3`, `Peer Support 3`, `Emotional Symptoms 3`, `Self-Control 3`) %>%
   describe() %>%
   as.data.frame() %>%
-  mutate(Variable = row.names(.)) %>%
-  select(Variable, mean, sd)
+  select(mean, sd) %>%
+  mutate(mean = round(mean, 2), sd = round(sd, 2))
 
-wave1_descriptive$Variable <- c("Parental Warmth Time 1", "Peer Support Time 1", "Emotional Symptoms Time 1", "Self-Control Time 1")
-wave2_descriptive$Variable <- c("Parental Warmth Time 2", "Peer Support Time 2", "Emotional Symptoms Time 2", "Self-Control Time 2")
-wave3_descriptive$Variable <- c("Parental Warmth Time 3", "Peer Support Time 3", "Emotional Symptoms Time 3", "Self-Control Time 3")
-
-combined_descriptive <- bind_rows(wave1_descriptive, wave2_descriptive, wave3_descriptive)
-
-combined_descriptive <- combined_descriptive %>%
-  select(Variable, Mean = mean, SD = sd)
-
-combined_descriptive
+# Display the descriptive statistics for each wave
+wave1_descriptive
+wave2_descriptive
+wave3_descriptive
 #--------------------- SEM: parental warmth vs emotional symptoms ----------------------
 library(lavaan)
 
