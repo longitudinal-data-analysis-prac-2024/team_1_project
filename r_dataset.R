@@ -361,29 +361,90 @@ anova(m4_psb, m4_psb_restricted)
 library(lavaan)
 library(semPlot)
 
-fit <- sem(m1_urs, data = final_df)
+#correlation matrix: correlations between all pairs of variables
+cor_vars <- final_df[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]
 
-# Define the layout matrix
-layout <- matrix(c(
+correlation_matrix <- corr.test(cor_vars, use = "pairwise.complete.obs")
+print(correlation_matrix)
+
+#visualisation matrix
+layout_1 <- matrix(c(
   "parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3",
   "emotion_w1", "emotion_w2", "emotion_w3"
 ), nrow = 2, byrow = TRUE)
 
 # Visualize the model with the custom layout
-semPaths(fit, whatLabels = "est", 
-         layout = layout, 
-         edge.label.cex = 1.2, 
-         curvePivot = TRUE, 
-         color = list(lat = "lightblue", man = "lightgreen"), 
-         label.cex = 1.5, 
-         sizeMan = 10,
-         sizeLat = 10,
+clm_1 <- semPaths(m1_urs, whatLabels = "est",
+         layout = layout_1,
+         edge.label.cex = 1.2,
+         curvePivot = TRUE,
+         color = list(lat = "lightblue", man = "lightblue"),
+         label.cex = 1.2,
+         sizeMan = 13,
+         sizeLat = 13,
          residuals = FALSE, # To hide residuals
          intercepts = FALSE, # To hide intercepts
-         nCharNodes = 0) # To ensure full variable names are shown
+         nCharNodes = 0, # To ensure full variable names are shown
+         edge.label.position = 0.3) # Adjust edge label position
 
-labels <- c(
-  "Emotional\nSymptoms\nTime 1", "Parental\nWarmth\nTime 1", 
-  "Emotional\nSymptoms\nTime 2", "Parental\nWarmth\nTime 2",
-  "Emotional\nSymptoms\nTime 3", "Parental\nWarmth\nTime 3"
-)
+layout_2 <- matrix(c(
+  "parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3",
+  "self_control_w1", "self_control_w2", "self_control_w3"
+), nrow = 2, byrow = TRUE)
+
+clm_2 <- semPaths(m2_urs, whatLabels = "est",
+                  layout = layout_2,
+                  edge.label.cex = 1.2,
+                  curvePivot = TRUE,
+                  color = list(lat = "lightblue", man = "lightblue"),
+                  label.cex = 1.2,
+                  sizeMan = 13,
+                  sizeLat = 13,
+                  residuals = FALSE, # To hide residuals
+                  intercepts = FALSE, # To hide intercepts
+                  nCharNodes = 0, # To ensure full variable names are shown
+                  edge.label.position = 0.3) # Adjust edge label position
+
+layout_3 <- matrix(c(
+  "peer_support_w1", "peer_support_w2", "peer_support_w3",
+  "emotion_w1", "emotion_w2", "emotion_w3"
+), nrow = 2, byrow = TRUE)
+
+# Visualize the model with the custom layout
+clm_3 <- semPaths(m3_pse, whatLabels = "est",
+                  layout = layout_3,
+                  edge.label.cex = 1.2,
+                  curvePivot = TRUE,
+                  color = list(lat = "lightblue", man = "lightblue"),
+                  label.cex = 1.2,
+                  sizeMan = 13,
+                  sizeLat = 13,
+                  residuals = FALSE, # To hide residuals
+                  intercepts = FALSE, # To hide intercepts
+                  nCharNodes = 0, # To ensure full variable names are shown
+                  edge.label.position = 0.3) # Adjust edge label position
+
+layout_4 <- matrix(c(
+  "peer_support_w1", "peer_support_w2", "peer_support_w3",
+  "self_control_w1", "self_control_w2", "self_control_w3"
+), nrow = 2, byrow = TRUE)
+
+clm_4 <- semPaths(m4_psb, whatLabels = "est",
+                  layout = layout_4,
+                  edge.label.cex = 1.2,
+                  curvePivot = TRUE,
+                  color = list(lat = "lightblue", man = "lightblue"),
+                  label.cex = 1.2,
+                  sizeMan = 13,
+                  sizeLat = 13,
+                  residuals = FALSE, # To hide residuals
+                  intercepts = FALSE, # To hide intercepts
+                  nCharNodes = 0, # To ensure full variable names are shown
+                  edge.label.position = 0.3) # Adjust edge label position
+
+# Plot each clm object individually
+plot(clm_1)
+plot(clm_2)
+plot(clm_3)
+plot(clm_4)
+
