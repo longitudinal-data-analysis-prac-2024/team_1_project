@@ -370,17 +370,17 @@ Questions</a></li>
 <ul>
 <li><a href="#design" id="toc-design">Design</a></li>
 <li><a href="#participants" id="toc-participants">Participants</a></li>
+<li><a href="#measures" id="toc-measures">Measures</a></li>
 </ul></li>
-<li><a href="#age-range" id="toc-age-range">Age range</a></li>
-<li><a href="#mean-age" id="toc-mean-age">Mean age</a></li>
-<li><a href="#age-standard-deviation" id="toc-age-standard-deviation">Age standard deviation</a></li>
-<li><a href="#gender-counts" id="toc-gender-counts">Gender
-counts</a></li>
-<li><a href="#table-with-the-demographic-information" id="toc-table-with-the-demographic-information">table with the
-demographic information</a>
+<li><a href="#analysis" id="toc-analysis">3. Analysis</a>
 <ul>
-<li><a href="#correlation-matrix" id="toc-correlation-matrix">Correlation Matrix</a>
+<li><a href="#descriptive-statistics" id="toc-descriptive-statistics">Descriptive Statistics</a></li>
+<li><a href="#correlation-matrix" id="toc-correlation-matrix">Correlation Matrix</a></li>
+<li><a href="#cross-lag-model" id="toc-cross-lag-model">Cross-lag
+Model</a>
 <ul>
+<li><a href="#i.-parental-support-on-emotional-outcome" id="toc-i.-parental-support-on-emotional-outcome">i. Parental Support on
+Emotional Outcome</a></li>
 <li><a href="#ii.-parental-support-on-self-control" id="toc-ii.-parental-support-on-self-control">ii. Parental Support on
 Self-Control</a></li>
 <li><a href="#iii.-peer-support-on-emotional-outcome" id="toc-iii.-peer-support-on-emotional-outcome">iii. Peer Support on
@@ -401,12 +401,6 @@ Support on Self-Control</a></li>
 </ul>
 </div>
 
-<p><strong>DATASET 1:</strong> Rice, F., Riglin, L., Ng-Knight, T.,
-Frederickson, N., Shelton, K., I Chris, M. (2017).A longitudinal
-multi-informant study of psychological adjustment and academic
-attainment over the transition from primary school to secondary school.
-[data collection]. UK Data Service. SN: 852714,DOI:
-10.5255/UKDA-SN-852714</p>
 <div id="background-information" class="section level1">
 <h1>1. Background Information</h1>
 <p>The transition from primary to secondary school is a pivotal period
@@ -569,48 +563,47 @@ of secondary school (ages 12-13).</p></li>
 <p>The study involves pupils from mixed non-selective secondary schools
 in South-East England, UK.</p>
 <p><strong>Demographics:</strong></p>
-<p>```{r} # Total number of participants total_participants &lt;-
-nrow(final_df)</p>
-<p>final_df &lt;- final_df %&gt;% filter(!is.na(Age_C1))</p>
-</div>
-</div>
-<div id="age-range" class="section level1">
-<h1>Age range</h1>
-<p>age_range &lt;- range(final_df$Age_C1_years)</p>
-</div>
-<div id="mean-age" class="section level1">
-<h1>Mean age</h1>
-<p>mean_age &lt;- mean(final_df$Age_C1_years)</p>
-</div>
-<div id="age-standard-deviation" class="section level1">
-<h1>Age standard deviation</h1>
-<p>age_sd &lt;- sd(final_df$Age_C1)</p>
-</div>
-<div id="gender-counts" class="section level1">
-<h1>Gender counts</h1>
-<p>gender_counts &lt;- final_df %&gt;% group_by(Gender) %&gt;%
-summarize(Count = n())</p>
-</div>
-<div id="table-with-the-demographic-information" class="section level1">
-<h1>table with the demographic information</h1>
-<p>demographics &lt;- data.frame( Demographic = c(‘Total Participants:’,
-‘Age Range:’, ‘Mean Age:’, ‘Age SD:’, paste0(‘Gender:’,
-gender_counts<span class="math inline">\(Gender)),  N =
-c(total_participants, paste(round(age_range, 2), collapse = &quot; -
-&quot;), round(mean_age, 2), round(age_sd, 2),
-as.character(gender_counts\)</span>Count)) )</p>
-<p>print(demographics)</p>
-<pre><code>
-## Measures
+<pre><code># Total number of participants
+total_participants &lt;- nrow(final_df)
 
-*The study utilizes the Strengths and Difficulties Questionnaire (SDQ) to measure emotional symptoms and the Brief Self-Control Scale (BSCS) to measure self-control, along with various questionnaires to assess parental and peer support.* 
+final_df &lt;- final_df %&gt;%
+  filter(!is.na(Age_C1))
 
-# 3. Analysis
+# Age range
+age_range &lt;- range(final_df$Age_C1_years)
 
-## Descriptive Statistics
+# Mean age
+mean_age &lt;- mean(final_df$Age_C1_years)
 
-```{r}
-# overall descriptive statistics for each wave
+# Age standard deviation
+age_sd &lt;- sd(final_df$Age_C1)
+
+# Gender counts
+gender_counts &lt;- final_df %&gt;% 
+  group_by(Gender) %&gt;% 
+  summarize(Count = n())
+
+# table with the demographic information
+demographics &lt;- data.frame(
+  Demographic = c(&#39;Total Participants: &#39;, &#39;Age Range: &#39;, &#39;Mean Age: &#39;, &#39;Age SD: &#39;, paste0(&#39;Gender: &#39;, gender_counts$Gender)),
+  N = c(total_participants, paste(round(age_range, 2), collapse = &quot; - &quot;), round(mean_age, 2), round(age_sd, 2), as.character(gender_counts$Count))
+)
+
+print(demographics)</code></pre>
+</div>
+<div id="measures" class="section level2">
+<h2>Measures</h2>
+<p><em>The study utilizes the Strengths and Difficulties Questionnaire
+(SDQ) to measure emotional symptoms and the Brief Self-Control Scale
+(BSCS) to measure self-control, along with various questionnaires to
+assess parental and peer support.</em></p>
+</div>
+</div>
+<div id="analysis" class="section level1">
+<h1>3. Analysis</h1>
+<div id="descriptive-statistics" class="section level2">
+<h2>Descriptive Statistics</h2>
+<pre><code># overall descriptive statistics for each wave
 wave1_descriptive &lt;- variable_final_df %&gt;%
   select(`Parental Warmth 1`, `Peer Support 1`, `Emotional Symptoms 1`, `Self-Control 1`) %&gt;%
   describe() %&gt;%
@@ -636,33 +629,41 @@ wave3_descriptive &lt;- variable_final_df %&gt;%
 wave1_descriptive
 wave2_descriptive
 wave3_descriptive</code></pre>
+</div>
 <div id="correlation-matrix" class="section level2">
 <h2>Correlation Matrix</h2>
-<p>Table 1. Correlation matrix of all variables measured at three
-waves</p>
-<p>```{r} cor_vars &lt;- final_df[, c(“parental_warmth_w1”,
-“parental_warmth_w2”, “parental_warmth_w3”,
-“peer_support_w1”,“peer_support_w2”,“peer_support_w3”,“emotion_w1”,
-“emotion_w2”,
-“emotion_w3”,“self_control_w1”,“self_control_w2”,“self_control_w3”)]</p>
-<p>correlation_result &lt;- corr.test(cor_vars, use =
-“pairwise.complete.obs”)</p>
-<p>corr_matrix &lt;- correlation_result<span class="math inline">\(r
-p_matrix &lt;- correlation_result\)</span>p</p>
-<p>corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE,
-pval = p_matrix,main=“Correlation plot of all variables in three waves”,
-xlas = 2)</p>
-<pre><code>
-The correlations between environmental support variables and emotional and behavioural outcomes are summarized in Table 1. Parental support demonstrated significant associations with better emotional and behavioural outcomes measured concurrently. Specifically, emotional symptoms exhibited negative correlations with parental support at each wave (Wave 1: r = -.11, p = .03; Wave 2: r = -.18, p \&lt; .001; Wave 3: r = -0.22, p \&lt; .01). Similarly, self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = .25, p \&lt; .001; Wave 2: r = .25, p \&lt; .001; Wave 3: r = .27, p \&lt; .001).
+<p><em>Table 1. Correlation matrix of all variables measured at three
+waves</em></p>
+<pre><code>{cor_vars &lt;- final_df[, c(&quot;parental_warmth_w1&quot;, &quot;parental_warmth_w2&quot;, &quot;parental_warmth_w3&quot;, &quot;peer_support_w1&quot;,&quot;peer_support_w2&quot;,&quot;peer_support_w3&quot;,&quot;emotion_w1&quot;, &quot;emotion_w2&quot;, &quot;emotion_w3&quot;,&quot;self_control_w1&quot;,&quot;self_control_w2&quot;,&quot;self_control_w3&quot;)]}
 
-Likewise, emotional symptoms exhibited positive correlations with peer support at each wave (Wave 1: r = 0.45, p \&lt; .001; Wave 2: r = 0.41, p \&lt; .001; Wave 3: r = 0.24, p \&lt; .001). Similarly, self-control displayed negative correlations with peer support at each wave (Wave 1: r = -0.38, p \&lt; .001; Wave 2: r = -0.25, p \&lt; .001; Wave 3: r = -0.08, p \&lt; .01).
+correlation_result &lt;- corr.test(cor_vars, use = &quot;pairwise.complete.obs&quot;)
 
-## Cross-lag Model
+corr_matrix &lt;- correlation_result$r
+p_matrix &lt;- correlation_result$p
 
-### i. Parental Support on Emotional Outcome
-
-```{r}
-m1_urs &lt;- &quot;
+corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main=&quot;Correlation plot of all variables in three waves&quot;, xlas = 2)</code></pre>
+<p>The correlations between environmental support variables and
+emotional and behavioural outcomes are summarized in Table 1. Parental
+support demonstrated significant associations with better emotional and
+behavioural outcomes measured concurrently. Specifically, emotional
+symptoms exhibited negative correlations with parental support at each
+wave (Wave 1: r = -.11, p = .03; Wave 2: r = -.18, p &lt; .001; Wave 3:
+r = -0.22, p &lt; .01). Similarly, self-control displayed consistent
+positive correlations with parental support at each wave (Wave 1: r =
+.25, p &lt; .001; Wave 2: r = .25, p &lt; .001; Wave 3: r = .27, p &lt;
+.001).</p>
+<p>Likewise, emotional symptoms exhibited positive correlations with
+peer support at each wave (Wave 1: r = 0.45, p &lt; .001; Wave 2: r =
+0.41, p &lt; .001; Wave 3: r = 0.24, p &lt; .001). Similarly,
+self-control displayed negative correlations with peer support at each
+wave (Wave 1: r = -0.38, p &lt; .001; Wave 2: r = -0.25, p &lt; .001;
+Wave 3: r = -0.08, p &lt; .01).</p>
+</div>
+<div id="cross-lag-model" class="section level2">
+<h2>Cross-lag Model</h2>
+<div id="i.-parental-support-on-emotional-outcome" class="section level3">
+<h3>i. Parental Support on Emotional Outcome</h3>
+<pre><code>m1_urs &lt;- &quot;
   parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
   emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
   parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
@@ -692,7 +693,18 @@ anova(m1_urs, m1_rs) </code></pre>
 <p>Model comparison indicates that the restricted model fits the
 observed data significantly worse than the unrestricted model (p
 &lt;.001), so the unrestricted model is preferred.</p>
-<p><code>{r} clm_1 &lt;- semPaths(m1_urs, whatLabels = &quot;std&quot;,          layout = layout_1,          edge.label.cex = 1.2,          curvePivot = TRUE,          color = list(lat = &quot;lightblue&quot;, man = &quot;lightblue&quot;),          label.cex = 1.2,          sizeMan = 13,          sizeLat = 13,          residuals = FALSE, # To hide residuals          intercepts = FALSE, # To hide intercepts          nCharNodes = 0, # To ensure full variable names are shown          edge.label.position = 0.3) # Adjust edge label position</code></p>
+<pre><code>clm_1 &lt;- semPaths(m1_urs, whatLabels = &quot;std&quot;,
+         layout = layout_1,
+         edge.label.cex = 1.2,
+         curvePivot = TRUE,
+         color = list(lat = &quot;lightblue&quot;, man = &quot;lightblue&quot;),
+         label.cex = 1.2,
+         sizeMan = 13,
+         sizeLat = 13,
+         residuals = FALSE, # To hide residuals
+         intercepts = FALSE, # To hide intercepts
+         nCharNodes = 0, # To ensure full variable names are shown
+         edge.label.position = 0.3) # Adjust edge label position</code></pre>
 <p><strong>Figure 1. Cross-Lag Model on the relationships between
 parental warmth and emotional outcomes across the transition from
 primary school (wave 1) to the first (wave 2) and second year (wave 3)
@@ -709,32 +721,38 @@ were not associated with parental support at wave 3 (p = .85). However,
 in the transitioning year, the emotional symptoms at wave one were
 negatively associated with parental support at wave 2 (β = -.14, p &lt;
 .001) while the reverse effect was not significant (p = .90)</p>
+</div>
 <div id="ii.-parental-support-on-self-control" class="section level3">
 <h3>ii. Parental Support on Self-Control</h3>
-<p>```{r} m2_urs &lt;- “parental_warmth_w3 ~ 1 + self_control_w2 +
-parental_warmth_w2 self_control_w3 ~ 1 + parental_warmth_w2 +
-self_control_w2 parental_warmth_w2 ~ 1 + self_control_w1 +
-parental_warmth_w1 self_control_w2 ~ 1 + parental_warmth_w1 +
-self_control_w1</p>
-<pre><code>      parental_warmth_w2 ~~ self_control_w2
-      parental_warmth_w3 ~~ self_control_w3
-      parental_warmth_w1 ~~ self_control_w1&quot;</code></pre>
-<p>m2_urs &lt;- sem(m2_urs, data = final_df) summary(m2_urs)</p>
-<p>m2_rs &lt;- “parental_warmth_w3 ~ 1 + self_control_w2 +
-a<em>parental_warmth_w2 self_control_w3 ~ 1 + parental_warmth_w2 +
-b</em>self_control_w2 parental_warmth_w2 ~ 1 + self_control_w1 +
-a<em>parental_warmth_w1 self_control_w2 ~ 1 + parental_warmth_w1 +
-b</em>self_control_w1</p>
-<pre><code>      parental_warmth_w2 ~~ self_control_w2
-      parental_warmth_w3 ~~ self_control_w3
-      parental_warmth_w1 ~~ self_control_w1&quot;</code></pre>
-<p>m2_rs &lt;- sem(m2_rs, data = final_df) summary(m2_rs)</p>
-<p>anova(m2_urs, m2_rs)</p>
-<pre><code>
-Model comparison indicates that the restricted model has a better fit to the observed data than the unrestricted model, so the restricted model is used.
+<pre><code>m2_urs &lt;- &quot;parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
+          self_control_w3 ~ 1 + parental_warmth_w2 + self_control_w2
+          parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
+          self_control_w2 ~ 1 + parental_warmth_w1 + self_control_w1
 
-```{r}
-clm_2 &lt;- semPaths(m2_rs, whatLabels = &quot;std&quot;,
+          parental_warmth_w2 ~~ self_control_w2
+          parental_warmth_w3 ~~ self_control_w3
+          parental_warmth_w1 ~~ self_control_w1&quot;
+
+m2_urs &lt;- sem(m2_urs, data = final_df)
+summary(m2_urs)
+
+m2_rs &lt;- &quot;parental_warmth_w3 ~ 1 + self_control_w2 + a*parental_warmth_w2
+          self_control_w3 ~ 1 + parental_warmth_w2 + b*self_control_w2
+          parental_warmth_w2 ~ 1 + self_control_w1 + a*parental_warmth_w1
+          self_control_w2 ~ 1 + parental_warmth_w1 + b*self_control_w1
+
+          parental_warmth_w2 ~~ self_control_w2
+          parental_warmth_w3 ~~ self_control_w3
+          parental_warmth_w1 ~~ self_control_w1&quot;
+
+m2_rs &lt;- sem(m2_rs, data = final_df)
+summary(m2_rs)
+
+anova(m2_urs, m2_rs) </code></pre>
+<p>Model comparison indicates that the restricted model has a better fit
+to the observed data than the unrestricted model, so the restricted
+model is used.</p>
+<pre><code>clm_2 &lt;- semPaths(m2_rs, whatLabels = &quot;std&quot;,
                   layout = layout_2,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
@@ -758,31 +776,39 @@ significant.</p>
 </div>
 <div id="iii.-peer-support-on-emotional-outcome" class="section level3">
 <h3>iii. Peer Support on Emotional Outcome</h3>
-<p>```{r} m3_pse &lt;- “peer_support_w3 ~ 1 + emotion_w2 +
-peer_support_w2 emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
-peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1 emotion_w2 ~ 1 +
-peer_support_w1 + emotion_w1</p>
-<pre><code>      peer_support_w2 ~~ emotion_w2
-      peer_support_w3 ~~ emotion_w3
-      peer_support_w1 ~~ emotion_w1&quot;</code></pre>
-<p>m3_pse &lt;- sem(m3_pse, data = final_df) summary(m3_pse) stand_m3
-&lt;- standardizedsolution(m3_pse) stand_m3</p>
-<p>m3_pse_restricted &lt;- “peer_support_w3 ~ 1 + emotion_w2 +
-b<em>peer_support_w2 emotion_w3 ~ 1 + b</em>peer_support_w2 +
-c<em>emotion_w2 peer_support_w2 ~ 1 + emotion_w1 + b</em>peer_support_w1
-emotion_w2 ~ 1 + b<em>peer_support_w1 + c</em>emotion_w1</p>
-<pre><code>                  peer_support_w2 ~~ emotion_w2
-                  peer_support_w3 ~~ emotion_w3
-                  peer_support_w1 ~~ emotion_w1
-                  &quot;</code></pre>
-<p>m3_pse_restricted &lt;- sem(m3_pse_restricted, data = final_df)
-summary(m3_pse_restricted)</p>
-<p>anova(m3_pse, m3_pse_restricted)</p>
-<pre><code>
-Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \&lt;.001), so the unrestricted model is preferred.
+<pre><code>m3_pse &lt;- &quot;peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
+          emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
+          peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
+          emotion_w2 ~ 1 + peer_support_w1 + emotion_w1
 
-```{r}
-clm_3 &lt;- semPaths(m3_pse, whatLabels = &quot;std&quot;,
+          peer_support_w2 ~~ emotion_w2
+          peer_support_w3 ~~ emotion_w3
+          peer_support_w1 ~~ emotion_w1&quot;
+
+m3_pse &lt;- sem(m3_pse, data = final_df)
+summary(m3_pse)
+stand_m3 &lt;- standardizedsolution(m3_pse)
+stand_m3
+
+m3_pse_restricted &lt;- &quot;peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
+                      emotion_w3 ~ 1 + b*peer_support_w2 + c*emotion_w2
+                      peer_support_w2 ~ 1 + emotion_w1 + b*peer_support_w1
+                      emotion_w2 ~ 1 + b*peer_support_w1 + c*emotion_w1
+                      
+                      peer_support_w2 ~~ emotion_w2
+                      peer_support_w3 ~~ emotion_w3
+                      peer_support_w1 ~~ emotion_w1
+                      &quot;
+
+m3_pse_restricted &lt;- sem(m3_pse_restricted, data = final_df)
+summary(m3_pse_restricted)
+
+
+anova(m3_pse, m3_pse_restricted)</code></pre>
+<p>Model comparison indicates that the restricted model fits the
+observed data significantly worse than the unrestricted model (p
+&lt;.001), so the unrestricted model is preferred.</p>
+<pre><code>clm_3 &lt;- semPaths(m3_pse, whatLabels = &quot;std&quot;,
                   layout = layout_3,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
@@ -814,32 +840,38 @@ Wave 2, was significant (β = .42, p &lt; .001).</p>
 </div>
 <div id="iv.-parental-support-on-self-control" class="section level3">
 <h3>iv. Parental Support on Self-Control</h3>
-<p>```{r} m4_psb &lt;- “peer_support_w3 ~ 1 + self_control_w2 +
-peer_support_w2 self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
-peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1 self_control_w2
-~ 1 + peer_support_w1 + self_control_w1</p>
-<pre><code>      peer_support_w2 ~~ self_control_w2
-      peer_support_w3 ~~ self_control_w3
-      peer_support_w1 ~~ self_control_w1&quot;</code></pre>
-<p>m4_psb &lt;- sem(m4_psb, data = final_df) summary(m4_psb) stand_m4
-&lt;- standardizedsolution(m4_psb) stand_m4</p>
-<p>m4_psb_restricted &lt;- “peer_support_w3 ~ 1 + self_control_w2 +
-b<em>peer_support_w2 self_control_w3 ~ 1 + b</em>peer_support_w2 +
-c<em>self_control_w2 peer_support_w2 ~ 1 + self_control_w1 +
-b</em>peer_support_w1 self_control_w2 ~ 1 + b<em>peer_support_w1 +
-c</em>self_control_w1</p>
-<pre><code>                  peer_support_w2 ~~ self_control_w2
-                  peer_support_w3 ~~ self_control_w3
-                  peer_support_w1 ~~ self_control_w1
-                  &quot;</code></pre>
-<p>m4_psb_restricted &lt;- sem(m4_psb_restricted, data = final_df)
-summary(m4_psb_restricted)</p>
-<p>anova(m4_psb, m4_psb_restricted)</p>
-<pre><code>
-Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \&lt;.001), so the unrestricted model is preferred.
+<pre><code>m4_psb &lt;- &quot;peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
+          self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
+          peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
+          self_control_w2 ~ 1 + peer_support_w1 + self_control_w1
 
-```{r}
-clm_4 &lt;- semPaths(m4_psb, whatLabels = &quot;std&quot;,
+          peer_support_w2 ~~ self_control_w2
+          peer_support_w3 ~~ self_control_w3
+          peer_support_w1 ~~ self_control_w1&quot;
+
+m4_psb &lt;- sem(m4_psb, data = final_df)
+summary(m4_psb)
+stand_m4 &lt;- standardizedsolution(m4_psb)
+stand_m4
+
+m4_psb_restricted &lt;- &quot;peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
+                      self_control_w3 ~ 1 + b*peer_support_w2 + c*self_control_w2
+                      peer_support_w2 ~ 1 + self_control_w1 + b*peer_support_w1
+                      self_control_w2 ~ 1 + b*peer_support_w1 + c*self_control_w1
+                      
+                      peer_support_w2 ~~ self_control_w2
+                      peer_support_w3 ~~ self_control_w3
+                      peer_support_w1 ~~ self_control_w1
+                      &quot;
+
+m4_psb_restricted &lt;- sem(m4_psb_restricted, data = final_df)
+summary(m4_psb_restricted)
+
+anova(m4_psb, m4_psb_restricted)</code></pre>
+<p>Model comparison indicates that the restricted model fits the
+observed data significantly worse than the unrestricted model (p
+&lt;.001), so the unrestricted model is preferred.</p>
+<pre><code>clm_4 &lt;- semPaths(m4_psb, whatLabels = &quot;std&quot;,
                   layout = layout_4,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
