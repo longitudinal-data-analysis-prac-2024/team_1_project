@@ -110,9 +110,9 @@ The final sample size comprised 467 participants after removing outliers and exc
 
 ![**Table 1. Correlation matrix of all variables measured at three waves**](plots/correlation_matrix.png)
 
-The correlations between environmental support variables and emotional and behavioral outcomes are summarized in Table 1. Parental support demonstrated significant associations with better emotional and behavioral outcomes measured concurrently. Specifically, emotional symptoms exhibited weak correlations with parental support at each wave (Wave 1:  r = 0.03; Wave 2: r = -0.02; Wave 3: r = -0.12 ). Self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = 0.32, p \< .001; Wave 2: r = 0.27, p \< .001; Wave 3: r = 0.23, p \< .001). 
+The correlations between environmental support variables and emotional and behavioral outcomes are summarized in Table 1. Specifically, emotional symptoms exhibited weak, decreasing correlations with parental support at each wave (Wave 1:  r = 0.03; Wave 2: r = -0.02; Wave 3: r = -0.12 ). Self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = 0.32, p \< .001; Wave 2: r = 0.27, p \< .001; Wave 3: r = 0.23, p \< .001). 
 
-Whereas, emotional symptoms exhibited positive correlations with peer support at each wave (Wave 1: r = 0.26, p \< .001; Wave 2: r = 0.25, p \< .001; Wave 3: r = 0.20, p \< .001), self-control displayed significant negative correlations with peer support at each wave (Wave 1: r = -0.34, p \< .001; Wave 2: r = -0.16, p \< .001; Wave 3: r = -0.17, p \< .01). 
+Whereas, emotional symptoms exhibited positive correlations with peer support (more lonliness) at each wave (Wave 1: r = 0.26, p \< .001; Wave 2: r = 0.25, p \< .001; Wave 3: r = 0.20, p \< .001), self-control displayed significant negative correlations with peer support (less loneliness) in waves 1 and 2 (Wave 1: r = -0.34, p \< .001; Wave 2: r = -0.16, p \< .001; Wave 3: r = -0.17, p \< .01). 
 
 ## Cross-lag Models
 
@@ -122,7 +122,7 @@ Model comparison indicates that the unrestricted model fits the observed data be
 
 ![**Figure 1. Cross-Lag Model on the relationships between parental warmth and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_1.png)
 
-\n The relationship between parental support and self-control is shown in the path diagram in Figure 1. Self-control remained relatively stable across all three waves (Wave 2: β = .47, p \< .001; Wave 3: β = .48, p \< .001). However, no co-variances and cross-lagged effect between parental support and self-control at any wave was significant.
+\n The relationship between parental support and self-control is shown in the path diagram in Figure 1. Self-control remained relatively stable across all three waves (Wave 2: β = .47, p \< .001; Wave 3: β = .48, p \< .001). However, no covariances and cross-lagged effect between parental support and self-control at any wave was significant.
 
 ### ii. Parental Support on Self-Control
 
@@ -162,9 +162,9 @@ While there was is a significant negative covariance between peer support and se
 
 ## Parental & Peer Support on Emotional Outcomes
 
-We found that none of parental support measured in the previous wave predicted subsequent emotional symptoms in any waves. This is contradictory to our hypothesis and some previous literature predicting adolescent internalizing and externalizing symptoms using parental support (Butterfield et al., 2020). However, we did found that peer support at the start of secondary school predicted subsequent emotional symptoms at the end of first year. Taken altogether, our findings suggest that parental relationships might gradually give way to peer relationships in early adolescence: As adolescents experience increased conflicts with parents to seek for independence and autonomy, they become more influenced by peers who they spend increasing amount of time socializing with. This is consistent with studies indicating that while the parental buffering on stress regulation is diminishing, friendships and peer relationships at school was associated with reduced emotional problems (Wang et al., 2024)  
+We found that none of parental support measured in the previous wave predicted subsequent emotional symptoms in any waves. This is contradictory to our hypothesis and some previous literature predicting adolescent internalizing and externalizing symptoms using parental support (Butterfield et al., 2020). However, we did found that peer support at the start of secondary school predicted subsequent emotional symptoms at the end of first year. Taken altogether, our findings suggest that parental relationships might gradually give way to peer relationships in early adolescence: As adolescents experience increased conflicts with parents to seek for independence and autonomy, they become more influenced by peers who they spend increasing amount of time socializing with. This could also explain the initial decreased levels of peer support between the transition of primary to first term of secondary school, then increased levels of peer support from the first term to final term of Year 7, and is consistent with studies indicating that while the parental buffering on stress regulation is diminishing, friendships and peer relationships at school was associated with reduced emotional problems (Wang et al., 2024).
 
-However, both parental and peer support were associated with reduced emotional symptoms concurrently, indicating that positive interpersonal relationships in general might protect children and adolescents from emotional problems, but the contribution of parental support to this effect could be temporary and short-lasting compared to peer support. Our findings highlight the potential of group-based treatment and social skill training in treating adolescent psychological problems.
+However, both parental and peer support were associated with reduced emotional symptoms concurrently, indicating that positive interpersonal relationships in general might protect children and adolescents from emotional problems, but the contribution of parental support to this effect could be temporary and short-lasting compared to peer support. Our findings highlight the potential of group-based treatment and social skill training in treating adolescent psychological problems.
 
 ## Parental & Peer Support on Self-Control
 
