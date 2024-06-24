@@ -69,13 +69,9 @@ The study involves pupils from mixed non-selective secondary schools in South-Ea
 
 Total number of participants: 626
 
-Gender: 
-- Male: 310
-- Female: 316
+Gender: - Male: 310 - Female: 316
 
-Age: 
-- Mean (SD): 11.22 years (3.53)
-- Range: 10.67 - 11.92 years
+Age: - Mean (SD): 11.22 years (3.53) - Range: 10.67 - 11.92 years
 
 ## Measures
 
@@ -85,79 +81,40 @@ Age:
 
 ## Descriptive Statistics
 
-| **Wave 1**    | Mean (SD)|
-| ----------- | ----------- |
-| Parental Warmth | 37.51 (5.73) |
-| Peer Support   | 25.12 (9.57) |
-| Emotional Symptoms   | 2.11 (2.08) |
-| Self-Control   | 3.88 (0.71) |
+| **Wave 1**         | Mean (SD)    |
+|--------------------|--------------|
+| Parental Warmth    | 37.51 (5.73) |
+| Peer Support       | 25.12 (9.57) |
+| Emotional Symptoms | 2.11 (2.08)  |
+| Self-Control       | 3.88 (0.71)  |
 
-| **Wave 2**    | Mean (SD)|
-| ----------- | ----------- |
-| Parental Warmth | 37.05 (6.47) |
-| Peer Support   | 17.19 (3.18) |
-| Emotional Symptoms   | 2.15 (2.14) |
-| Self-Control   | 3.72 (0.68) |
+| **Wave 2**         | Mean (SD)    |
+|--------------------|--------------|
+| Parental Warmth    | 37.05 (6.47) |
+| Peer Support       | 17.19 (3.18) |
+| Emotional Symptoms | 2.15 (2.14)  |
+| Self-Control       | 3.72 (0.68)  |
 
-| **Wave 3**    | Mean (SD)|
-| ----------- | ----------- |
-| Parental Warmth | 37.56 (6.57) |
-| Peer Support   | 17.19 (3.18) |
-| Emotional Symptoms   | 2.15 (2.14) |
-| Self-Control   | 3.72 (0.68) |
-
-# overall descriptive statistics for each wave
-wave1_descriptive <- variable_final_df %>%
-  select(`Parental Warmth 1`, `Peer Support 1`, `Emotional Symptoms 1`, `Self-Control 1`) %>%
-  describe() %>%
-  as.data.frame() %>%
-  select(mean, sd) %>%
-  mutate(mean = round(mean, 2), sd = round(sd, 2))
-
-wave2_descriptive <- variable_final_df %>%
-  select(`Parental Warmth 2`, `Peer Support 2`, `Emotional Symptoms 2`, `Self-Control 2`) %>%
-  describe() %>%
-  as.data.frame() %>%
-  select(mean, sd) %>%
-  mutate(mean = round(mean, 2), sd = round(sd, 2))
-
-wave3_descriptive <- variable_final_df %>%
-  select(`Parental Warmth 3`, `Peer Support 3`, `Emotional Symptoms 3`, `Self-Control 3`) %>%
-  describe() %>%
-  as.data.frame() %>%
-  select(mean, sd) %>%
-  mutate(mean = round(mean, 2), sd = round(sd, 2))
-
-# Display the descriptive statistics for each wave
-wave1_descriptive
-wave2_descriptive
-wave3_descriptive
-```
+| **Wave 3**         | Mean (SD)    |
+|--------------------|--------------|
+| Parental Warmth    | 37.56 (6.57) |
+| Peer Support       | 17.19 (3.18) |
+| Emotional Symptoms | 2.15 (2.14)  |
+| Self-Control       | 3.72 (0.68)  |
 
 ## Correlation Matrix
 
-*Table 1. Correlation matrix of all variables measured at three waves*
+![**Table 1. Correlation matrix of all variables measured at three waves**](plots/correlation_matrix.png)
 
-```
-{cor_vars <- final_df[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]}
-
-correlation_result <- corr.test(cor_vars, use = "pairwise.complete.obs")
-
-corr_matrix <- correlation_result$r
-p_matrix <- correlation_result$p
-
-corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main="Correlation plot of all variables in three waves", xlas = 2)
-```
-
-The correlations between environmental support variables and emotional and behavioural outcomes are summarized in Table 1. Parental support demonstrated significant associations with better emotional and behavioural outcomes measured concurrently. Specifically, emotional symptoms exhibited negative correlations with parental support at each wave (Wave 1: r = -.11, p = .03; Wave 2: r = -.18, p \< .001; Wave 3: r = -0.22, p \< .01). Similarly, self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = .25, p \< .001; Wave 2: r = .25, p \< .001; Wave 3: r = .27, p \< .001).
+The correlations between environmental support variables and emotional and behavioural outcomes are summarised in Table 1. Parental support demonstrated significant associations with better emotional and behavioural outcomes measured concurrently. Specifically, emotional symptoms exhibited negative correlations with parental support at each wave (Wave 1: r = -.11, p = .03; Wave 2: r = -.18, p \< .001; Wave 3: r = -0.22, p \< .01). Similarly, self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = .25, p \< .001; Wave 2: r = .25, p \< .001; Wave 3: r = .27, p \< .001).
 
 Likewise, emotional symptoms exhibited positive correlations with peer support at each wave (Wave 1: r = 0.45, p \< .001; Wave 2: r = 0.41, p \< .001; Wave 3: r = 0.24, p \< .001). Similarly, self-control displayed negative correlations with peer support at each wave (Wave 1: r = -0.38, p \< .001; Wave 2: r = -0.25, p \< .001; Wave 3: r = -0.08, p \< .01).
 
-## Cross-lag Model
+## Cross-lag Models
 
 ### i. Parental Support on Emotional Outcome
 
-```
+```         
 m1_urs <- "
   parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
   emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
@@ -189,28 +146,13 @@ anova(m1_urs, m1_rs)
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
-```
-clm_1 <- semPaths(m1_urs, whatLabels = "std",
-         layout = layout_1,
-         edge.label.cex = 1.2,
-         curvePivot = TRUE,
-         color = list(lat = "lightblue", man = "lightblue"),
-         label.cex = 1.2,
-         sizeMan = 13,
-         sizeLat = 13,
-         residuals = FALSE, # To hide residuals
-         intercepts = FALSE, # To hide intercepts
-         nCharNodes = 0, # To ensure full variable names are shown
-         edge.label.position = 0.3) # Adjust edge label position
-```
+![**Figure 1. Cross-Lag Model on the relationships between parental warmth and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_1.png)
 
-**Figure 1. Cross-Lag Model on the relationships between parental warmth and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**
-
-The relationship between parental support and emotional symptoms is shown in the path diagram in Figure 1. For variable stability, emotional symptoms remained relatively stable across all three waves (β = .57 and .56). Parental support was more stable in the first year of secondary school (β = .70) than in the transitioning year (β = .48). For the cross-lagged effect, parental support at wave 2 was negatively associated with emotional symptoms at wave 3 (β = -.131, p \< .001). This effect is unidirectional because emotional symptoms at wave two were not associated with parental support at wave 3 (p = .85). However, in the transitioning year, the emotional symptoms at wave one were negatively associated with parental support at wave 2 (β = -.14, p \< .001) while the reverse effect was not significant (p = .90)
+\n The relationship between parental support and emotional symptoms is shown in the path diagram in Figure 1. For variable stability, emotional symptoms remained relatively stable across all three waves (β = .57 and .56). Parental support was more stable in the first year of secondary school (β = .70) than in the transitioning year (β = .48). For the cross-lagged effect, parental support at wave 2 was negatively associated with emotional symptoms at wave 3 (β = -.131, p \< .001). This effect is unidirectional because emotional symptoms at wave two were not associated with parental support at wave 3 (p = .85). However, in the transitioning year, the emotional symptoms at wave one were negatively associated with parental support at wave 2 (β = -.14, p \< .001) while the reverse effect was not significant (p = .90)
 
 ### ii. Parental Support on Self-Control
 
-```
+```         
 m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
           self_control_w3 ~ 1 + parental_warmth_w2 + self_control_w2
           parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
@@ -240,28 +182,13 @@ anova(m2_urs, m2_rs)
 
 Model comparison indicates that the restricted model has a better fit to the observed data than the unrestricted model, so the restricted model is used.
 
-```
-clm_2 <- semPaths(m2_rs, whatLabels = "std",
-                  layout = layout_2,
-                  edge.label.cex = 1.2,
-                  curvePivot = TRUE,
-                  color = list(lat = "lightblue", man = "lightblue"),
-                  label.cex = 1.2,
-                  sizeMan = 13,
-                  sizeLat = 13,
-                  residuals = FALSE, # To hide residuals
-                  intercepts = FALSE, # To hide intercepts
-                  nCharNodes = 0, # To ensure full variable names are shown
-                  edge.label.position = 0.3) # Adjust edge label position
-```
+![**Figure 2. Cross-Lag Model on the relationships between parental warmth and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_2.png)
 
-**Figure 2. Cross-Lag Model on the relationships between parental warmth and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**
-
-The relationship between parental support and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (β = .55 and .57). However, no cross-lagged effect between parental support and self-control at any wave was significant.
+\n The relationship between parental support and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (β = .55 and .57). However, no cross-lagged effect between parental support and self-control at any wave was significant.
 
 ### iii. Peer Support on Emotional Outcome
 
-```
+```         
 m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
           emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
           peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
@@ -295,30 +222,15 @@ anova(m3_pse, m3_pse_restricted)
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
-```
-clm_3 <- semPaths(m3_pse, whatLabels = "std",
-                  layout = layout_3,
-                  edge.label.cex = 1.2,
-                  curvePivot = TRUE,
-                  color = list(lat = "lightblue", man = "lightblue"),
-                  label.cex = 1.2,
-                  sizeMan = 13,
-                  sizeLat = 13,
-                  residuals = FALSE, # To hide residuals
-                  intercepts = FALSE, # To hide intercepts
-                  nCharNodes = 0, # To ensure full variable names are shown
-                  edge.label.position = 0.3) # Adjust edge label position
-```
+![**Figure 3. Cross-Lag Model on the relationships between peer support and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_3.png)
 
-**Figure 3. Cross-Lag Model on the relationships between peer support and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**
-
-The relationship between peer support and emotional symptoms is shown in the path diagram in Figure 3. Emotional symptoms remained relatively stable for variable stability across all three waves (β = .55 and .56). Peer support was also stable across waves, with stability coefficients of β = .40 from Wave 1 to Wave 2 and β = -.35 from Wave 2 to Wave 3.
+\n The relationship between peer support and emotional symptoms is shown in the path diagram in Figure 3. Emotional symptoms remained relatively stable for variable stability across all three waves (β = .55 and .56). Peer support was also stable across waves, with stability coefficients of β = .40 from Wave 1 to Wave 2 and β = -.35 from Wave 2 to Wave 3.
 
 For the cross-lagged effects, peer support at Wave 2 was positively associated with emotional symptoms at Wave 3 (β = .13, p = .00). This effect is unidirectional because emotional symptoms at Wave 2 were not associated with peer support at Wave 3 (β = .04, p = .33). However, emotional symptoms at Wave 1 were not significantly associated with peer support at Wave 2 (β = -.06, p = .16). In contrast, the reverse effect, peer support at Wave 1 positively associated with emotional symptoms at Wave 2, was significant (β = .42, p \< .001).
 
 ### iv. Parental Support on Self-Control
 
-```
+```         
 m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
           self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
           peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
@@ -351,7 +263,7 @@ anova(m4_psb, m4_psb_restricted)
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
-```
+```         
 clm_4 <- semPaths(m4_psb, whatLabels = "std",
                   layout = layout_4,
                   edge.label.cex = 1.2,
@@ -366,9 +278,9 @@ clm_4 <- semPaths(m4_psb, whatLabels = "std",
                   edge.label.position = 0.3) # Adjust edge label position
 ```
 
-**Figure 4. Cross-Lag Model on the relationships between peer support and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**
+![**Figure 4. Cross-Lag Model on the relationships between peer support and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_4.png)
 
-The relationship between peer support and self-control is shown in the path diagram in Figure 4. Self-control remained relatively stable across all three waves (β = 0.51 and 0.53). Peer support was also stable across waves, with stability coefficients of β = 0.33 from Wave 1 to Wave 2 and β = -0.28 from Wave 2 to Wave 3.
+\n The relationship between peer support and self-control is shown in the path diagram in Figure 4. Self-control remained relatively stable across all three waves (β = 0.51 and 0.53). Peer support was also stable across waves, with stability coefficients of β = 0.33 from Wave 1 to Wave 2 and β = -0.28 from Wave 2 to Wave 3.
 
 In terms of the cross-lagged effects, peer support at Wave 2 did not show a significant association with self-control at Wave 3 (β = -0.06, p = .19). Similarly, peer support at Wave 1 was not significantly associated with self-control at Wave 2 (β = -0.01, p = .83). Equally, self-control at Wave 1 did not show a significant association with peer support at Wave 2 (β = -0.07, p = .12), and self-control at Wave 2 was not significantly associated with peer support at Wave 3 (β = 0.02, p = .70).
 

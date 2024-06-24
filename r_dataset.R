@@ -418,7 +418,12 @@ correlation_result <- corr.test(cor_vars, use = "pairwise.complete.obs")
 corr_matrix <- correlation_result$r
 p_matrix <- correlation_result$p
 
-corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main="Correlation plot of all variables in three waves", xlas = 2)
+correlation_matrix <-  corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main="Correlation plot of all variables in three waves", xlas = 2)
+
+#save plot with specified format
+png(filename = "../team_1_project/plots/correlation_matrix.png", width = 1000, height = 1000, units = "px")
+corPlot(corr_matrix, upper = FALSE, numbers = TRUE, diag = FALSE, stars = TRUE, pval = p_matrix, main = "Correlation Plot of all variables across the Three Waves", cex = 0.8, cex.axis = 0.8, xlas = 2)
+dev.off()
 
 #visualisation matrix
 layout_1 <- matrix(c(
@@ -427,6 +432,7 @@ layout_1 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 # Visualize the model with the custom layout
+png(filename = "../team_1_project/plots/clm_1.png", width = 1500, height = 1500, units = "px")
 clm_1 <- semPaths(m1_urs, whatLabels = "std",
          layout = layout_1,
          edge.label.cex = 1.2,
@@ -439,12 +445,14 @@ clm_1 <- semPaths(m1_urs, whatLabels = "std",
          intercepts = FALSE, # To hide intercepts
          nCharNodes = 0, # To ensure full variable names are shown
          edge.label.position = 0.3) # Adjust edge label position
+dev.off()
 
 layout_2 <- matrix(c(
   "parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3",
   "self_control_w1", "self_control_w2", "self_control_w3"
 ), nrow = 2, byrow = TRUE)
 
+png(filename = "../team_1_project/plots/clm_2.png", width = 1500, height = 1500, units = "px")
 clm_2 <- semPaths(m2_rs, whatLabels = "std",
                   layout = layout_2,
                   edge.label.cex = 1.2,
@@ -457,6 +465,7 @@ clm_2 <- semPaths(m2_rs, whatLabels = "std",
                   intercepts = FALSE, # To hide intercepts
                   nCharNodes = 0, # To ensure full variable names are shown
                   edge.label.position = 0.3) # Adjust edge label position
+dev.off()
 
 layout_3 <- matrix(c(
   "peer_support_w1", "peer_support_w2", "peer_support_w3",
@@ -464,6 +473,7 @@ layout_3 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 # Visualize the model with the custom layout
+png(filename = "../team_1_project/plots/clm_3.png", width = 1500, height = 1500, units = "px")
 clm_3 <- semPaths(m3_pse, whatLabels = "std",
                   layout = layout_3,
                   edge.label.cex = 1.2,
@@ -476,12 +486,14 @@ clm_3 <- semPaths(m3_pse, whatLabels = "std",
                   intercepts = FALSE, # To hide intercepts
                   nCharNodes = 0, # To ensure full variable names are shown
                   edge.label.position = 0.3) # Adjust edge label position
+dev.off()
 
 layout_4 <- matrix(c(
   "peer_support_w1", "peer_support_w2", "peer_support_w3",
   "self_control_w1", "self_control_w2", "self_control_w3"
 ), nrow = 2, byrow = TRUE)
 
+png(filename = "../team_1_project/plots/clm_4.png", width = 1500, height = 1500, units = "px")
 clm_4 <- semPaths(m4_psb, whatLabels = "std",
                   layout = layout_4,
                   edge.label.cex = 1.2,
@@ -494,6 +506,7 @@ clm_4 <- semPaths(m4_psb, whatLabels = "std",
                   intercepts = FALSE, # To hide intercepts
                   nCharNodes = 0, # To ensure full variable names are shown
                   edge.label.position = 0.3) # Adjust edge label position
+dev.off()
 
 # Plot each clm object individually
 plot(clm_1)
