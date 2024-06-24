@@ -67,15 +67,20 @@ The study involves pupils from mixed non-selective secondary schools in South-Ea
 
 **Demographics:**
 
-Total number of participants: 626
-
-Gender: - Male: 310 - Female: 316
-
-Age: - Mean (SD): 11.22 years (3.53) - Range: 10.67 - 11.92 years
+| Participants   | N    |
+|--------------------|--------------|
+| **Total**    | 626 |
+| **Gender**     |  |
+| Male | 310  |
+| Female       | 316  |
+| **Age (in years)**     |  |
+| Mean (SD) | 11.22 (3.53)  |
+| Min       | 10.67  |
+| Max       | 11.92  |
 
 ## Measures
 
-*The study utilizes the Strengths and Difficulties Questionnaire (SDQ) to measure emotional symptoms and the Brief Self-Control Scale (BSCS) to measure self-control, along with various questionnaires to assess parental and peer support.*
+(need to add)
 
 # 3. Analysis
 
@@ -262,21 +267,6 @@ anova(m4_psb, m4_psb_restricted)
 ```
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
-
-```         
-clm_4 <- semPaths(m4_psb, whatLabels = "std",
-                  layout = layout_4,
-                  edge.label.cex = 1.2,
-                  curvePivot = TRUE,
-                  color = list(lat = "lightblue", man = "lightblue"),
-                  label.cex = 1.2,
-                  sizeMan = 13,
-                  sizeLat = 13,
-                  residuals = FALSE, # To hide residuals
-                  intercepts = FALSE, # To hide intercepts
-                  nCharNodes = 0, # To ensure full variable names are shown
-                  edge.label.position = 0.3) # Adjust edge label position
-```
 
 ![**Figure 4. Cross-Lag Model on the relationships between peer support and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_4.png)
 
