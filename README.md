@@ -7,7 +7,7 @@ output:
 
 # 1. Background Information
 
-The transition from primary to secondary school is a pivotal period marked by substantial changes in the school environment, social interactions, and academic expectations, as it can affect students' health outcomes and development (Rice et al., 2011). Children often experience mixed emotions during this time: they look forward to increased freedom and new friendships but also express concerns about peer relationships, getting lost, and the anxiety associated with a heavier course workload (Zeedyk et al., 2003). These heightened worries align with the onset of anxiety disorders, which become more prominent in early adolescence (Kessler et al., 2005). In addition to emotional challenges, behavioural factors like self-control significantly impact how well children adjust to secondary school. A longitudinal study found that children with better self-control adapted more successfully to the secondary education environment and achieved higher grades in English, math, and science (Ng-Knight et al., 2016). Given the close link between emotional and behavioural outcomes and successful transitions, exploring how environmental factors, specifically parental and peer support, can enhance these outcomes and facilitate a smoother transition is beneficial.
+The transition from primary to secondary school is a pivotal period marked by substantial changes in the school environment, social interactions, and academic expectations, as it can affect students' health outcomes and development. Children often experience mixed emotions during this time: they look forward to increased freedom and new friendships but also express concerns about peer relationships, getting lost, and the anxiety associated with a heavier course workload (Zeedyk et al., 2003). These heightened worries align with the onset of anxiety disorders, which become more prominent in early adolescence. In addition to emotional challenges, behavioural factors like self-control significantly impact how well children adjust to secondary school. A longitudinal study found that children with better self-control adapted more successfully to the secondary education environment and achieved higher grades in English, math, and science (Ng-Knight et al., 2016). Given the close link between emotional and behavioural outcomes and successful transitions, exploring how environmental factors, specifically parental and peer support, can enhance these outcomes and facilitate a smoother transition is beneficial.
 
 ## Parental Support and Transition
 
@@ -17,15 +17,13 @@ Self-control, a pivotal behavioural outcome, is the ability to resist temptation
 
 ## Peer Support and Transition
 
-Peer support has also been linked to better adjustment in secondary school and acts as a significant protective factor for children's mental and emotional well-being during the primary-secondary school transition (Lester & Cross, 2015; Virtanen et al., 2019). Studies indicate that peer support effectively mitigates negative emotions and contributes to improved emotional well-being (Pei et al., 2023). For instance, the act of imagining support from a peer led to lower negativity ratings in participants compared to self-focused reflection. Furthermore, a neural signature associated with social support has been identified, encompassing brain regions like the dorsomedial prefrontal cortex (DMPFC), precuneus, temporoparietal junction (TPJ), and the superior frontal gyrus. This signature is linked to reduced negative affect, enhanced emotion regulation, higher life satisfaction, and lower loneliness. Notably, these brain regions are part of the social cognition and cognitive control networks, underscoring their role in processing social interactions and regulating emotions.
+Likewise, research has consistently shown that peer support is associated with better adjustment to secondary school with peer support as a significant protective factor for mental and emotional well-being by helping children cope with stress during the primary-secondary school transition (Virtanen et al., 2019). In fact, studies have shown that peer support effectively buffers negative emotions and enhances emotional well-being where imagining support from a peer reduced negativity ratings in participants compared to self-focused reflection (Pei et al., 2023). A neural signature associated with social support was identified, involving brain regions such as the dorsomedial prefrontal cortex (DMPFC), precuneus, temporoparietal junction (TPJ), and the superior frontal gyrus. This signature was linked to lower negative affect and better emotion regulation, correlating with higher life satisfaction and lower loneliness. These regions are part of the social cognition and cognitive control networks, highlighting their role in processing social interactions and regulating emotions.
 
-Peer support can positively influence behavioural outcomes such as self-control during the primary-secondary school transition. For example, supporting autonomy has positively impacted a child's self-esteem and can contribute to better self-control outcomes during this transition period (Jindal‐Snape et al., 2020).
-
-The transition from primary to secondary school is a pivotal period where children navigate changes in their social environments and relationships, which significantly influence their self-control and behavioural outcomes. Research underscores the increasing attachment to peers and the stability in victimization across the transition, highlighting the profound role of peer relationships in shaping behavioral outcomes (Lorijn, 2024). Moreover, interventions such as peer mentoring programs have been identified as effective strategies to support children's transition and promote self-control during this period (Tsegay et al., 2023).
+The transition from primary to secondary school is a pivotal period where children navigate changes in their social environments and relationships, which can also significantly influence their behavioural outcomes such as self-control. Research underscores the increasing attachment to peers and the stability in victimization across the transition, highlighting the profound role of peer relationships in shaping behavioral outcomes (Lorijn, 2024). Moreover, interventions such as peer mentoring programs have been identified as effective strategies to support children's transition and promote self-control during this period.
 
 ## Research Significance
 
-As children grow older, their peer relationships often become more important, and the impact of parental support may decrease. One study found that parental support effectively reduced stress in 9 to 10-year-olds, but it had no significant effect on 15 to 16-year-olds (Hostinar et al., 2014). Since this age range includes the transition to secondary school, it’s important to investigate whether parental support has less of a positive impact on transitioning children during this period.
+As children grow older, their peer relationships often become more important, and the impact of parental support may decrease. One study found that parental support effectively reduced stress in 9 to 10-year-olds, but it had no significant effect on 15 to 16-year-olds (Hostinar et al., 2015). Since this age range includes the transition to secondary school, it’s important to investigate whether parental support has less of a positive impact on transitioning children during this period.
 
 It's equally important to explore the effects of peer support during this transitional phase. As children enter adolescence, they increasingly rely on their peers for social and emotional support, which plays a critical role in their well-being and may offset the diminishing influence of parental support. Understanding how peer support influences stress reduction, social adjustment, and overall well-being can provide a more comprehensive view of the factors contributing to successful transitions during this critical period. This insight is essential for developing effective interventions and support systems tailored to the evolving needs of growing children.
 
@@ -67,20 +65,35 @@ The study involves pupils from mixed non-selective secondary schools in South-Ea
 
 **Demographics:**
 
-| Participants   | N    |
+| Participants       | N            |
 |--------------------|--------------|
-| **Total**    | 626 |
-| **Gender**     |  |
-| Male | 310  |
-| Female       | 316  |
-| **Age (in years)**     |  |
-| Mean (SD) | 11.22 (3.53)  |
-| Min       | 10.67  |
-| Max       | 11.92  |
+| **Total**          | 626          |
+| **Gender**         |              |
+| Male               | 310          |
+| Female             | 316          |
+| **Age (in years)** |              |
+| Mean (SD)          | 11.22 (3.53) |
+| Min                | 10.67        |
+| Max                | 11.92        |
+| **Ethnicity**      |              |
+| White              | 337          |
+| Black              | 40           |
+| Asian              | 128          |
+| Mixed              | 33           |
+| Other              | 17           |
+| NA                 | 71           |
+| **SEN Status**     |              |
+| None               | 475          |
+| School Action      | 59           |
+| School Action Plus | 22           |
+| Statement          | 6            |
+| NA                 | 64           |
 
 ## Measures
 
-(need to add)
+For the independent variables, parental support was measured using the IYFP Interaction Rating Scales, where higher scores indicate more frequent expressions of warmth or hostility. Peer support was evaluated using the Loneliness in Children Scale, with higher scores indicating greater loneliness. \n For the dependent variables, Emotional outcomes were assessed through the Strengths & Difficulties Questionnaire's Emotional Symptoms Subscale, where higher scores denote more emotional symptoms. Self-control was measured using the Brief Self-Control Scale, with higher scores indicating better self-control
+
+NA values were handled by removing rows with insufficient non-NA values to compute mean scores for parental warmth, peer support, emotional symptoms, and self-control, ensuring only rows with adequate data were included in the analyses.
 
 # 3. Analysis
 
@@ -88,142 +101,54 @@ The study involves pupils from mixed non-selective secondary schools in South-Ea
 
 | **Wave 1**         | Mean (SD)    |
 |--------------------|--------------|
-| Parental Warmth    | 37.51 (5.73) |
-| Peer Support       | 25.12 (9.57) |
-| Emotional Symptoms | 2.11 (2.08)  |
-| Self-Control       | 3.88 (0.71)  |
+| Parental Warmth    | 38.97 (3.66) |
+| Peer Support       | 22.73 (6.12) |
+| Emotional Symptoms | 1.70 (1.67)  |
+| Self-Control       | 3.99 (0.66)  |
 
 | **Wave 2**         | Mean (SD)    |
 |--------------------|--------------|
-| Parental Warmth    | 37.05 (6.47) |
-| Peer Support       | 17.19 (3.18) |
-| Emotional Symptoms | 2.15 (2.14)  |
-| Self-Control       | 3.72 (0.68)  |
+| Parental Warmth    | 38.79 (4.05) |
+| Peer Support       | 10.95 (3.17) |
+| Emotional Symptoms | 1.66 (1.75)  |
+| Self-Control       | 3.87 (0.63)  |
 
 | **Wave 3**         | Mean (SD)    |
 |--------------------|--------------|
-| Parental Warmth    | 37.56 (6.57) |
-| Peer Support       | 17.19 (3.18) |
-| Emotional Symptoms | 2.15 (2.14)  |
-| Self-Control       | 3.72 (0.68)  |
+| Parental Warmth    | 39.31 (3.79) |
+| Peer Support       | 17.31 (2.15) |
+| Emotional Symptoms | 1.59 (1.56)  |
+| Self-Control       | 3.81 (0.64)  |
 
 ## Correlation Matrix
 
 ![**Table 1. Correlation matrix of all variables measured at three waves**](plots/correlation_matrix.png)
 
-The correlations between environmental support variables and emotional and behavioural outcomes are summarised in Table 1. Parental support demonstrated significant associations with better emotional and behavioural outcomes measured concurrently. Specifically, emotional symptoms exhibited negative correlations with parental support at each wave (Wave 1: r = -.11, p = .03; Wave 2: r = -.18, p \< .001; Wave 3: r = -0.22, p \< .01). Similarly, self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = .25, p \< .001; Wave 2: r = .25, p \< .001; Wave 3: r = .27, p \< .001).
+The correlations between environmental support variables and emotional and behavioral outcomes are summarized in Table 1. Parental support demonstrated significant associations with better emotional and behavioral outcomes measured concurrently. Specifically, emotional symptoms exhibited weak correlations with parental support at each wave (Wave 1:  r = 0.03; Wave 2: r = -0.02; Wave 3: r = -0.12 ). Self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = 0.32, p \< .001; Wave 2: r = 0.27, p \< .001; Wave 3: r = 0.23, p \< .001). 
 
-Likewise, emotional symptoms exhibited positive correlations with peer support at each wave (Wave 1: r = 0.45, p \< .001; Wave 2: r = 0.41, p \< .001; Wave 3: r = 0.24, p \< .001). Similarly, self-control displayed negative correlations with peer support at each wave (Wave 1: r = -0.38, p \< .001; Wave 2: r = -0.25, p \< .001; Wave 3: r = -0.08, p \< .01).
+Whereas, emotional symptoms exhibited positive correlations with peer support at each wave (Wave 1: r = 0.26, p \< .001; Wave 2: r = 0.25, p \< .001; Wave 3: r = 0.20, p \< .001), self-control displayed significant negative correlations with peer support at each wave (Wave 1: r = -0.34, p \< .001; Wave 2: r = -0.16, p \< .001; Wave 3: r = -0.17, p \< .01). 
 
 ## Cross-lag Models
 
 ### i. Parental Support on Emotional Outcome
 
-```         
-m1_urs <- "
-  parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
-  emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
-  parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
-  emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
-
-  parental_warmth_w2 ~~ emotion_w2
-  parental_warmth_w3 ~~ emotion_w3
-  parental_warmth_w1 ~~ emotion_w1
-"
-
-m1_urs <- sem(m1_urs, data = final_df)
-summary(m1_urs)
-
-m1_rs <- "parental_warmth_w3 ~ 1 + emotion_w2 + a*parental_warmth_w2
-          emotion_w3 ~ 1 + parental_warmth_w2 + b*emotion_w2
-          parental_warmth_w2 ~ 1 + emotion_w1 + a*parental_warmth_w1
-          emotion_w2 ~ 1 + parental_warmth_w1 + b*emotion_w1
-
-          parental_warmth_w2 ~~ emotion_w2
-          parental_warmth_w3 ~~ emotion_w3
-          parental_warmth_w1 ~~ emotion_w1"
-
-m1_rs <- sem(m1_rs, data = final_df)
-summary(m1_rs)
-
-anova(m1_urs, m1_rs) 
-```
-
-Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
+Model comparison indicates that the unrestricted model fits the observed data better than the unrestricted model, so the unrestricted model is preferred.
 
 ![**Figure 1. Cross-Lag Model on the relationships between parental warmth and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_1.png)
 
-\n The relationship between parental support and emotional symptoms is shown in the path diagram in Figure 1. For variable stability, emotional symptoms remained relatively stable across all three waves (β = .57 and .56). Parental support was more stable in the first year of secondary school (β = .70) than in the transitioning year (β = .48). For the cross-lagged effect, parental support at wave 2 was negatively associated with emotional symptoms at wave 3 (β = -.131, p \< .001). This effect is unidirectional because emotional symptoms at wave two were not associated with parental support at wave 3 (p = .85). However, in the transitioning year, the emotional symptoms at wave one were negatively associated with parental support at wave 2 (β = -.14, p \< .001) while the reverse effect was not significant (p = .90)
+\n The relationship between parental support and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (Wave 2: β = .47, p \< .001; Wave 3: β = .48, p \< .001). However, no cross-lagged effect between parental support and self-control at any wave was significant.
 
 ### ii. Parental Support on Self-Control
 
-```         
-m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
-          self_control_w3 ~ 1 + parental_warmth_w2 + self_control_w2
-          parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
-          self_control_w2 ~ 1 + parental_warmth_w1 + self_control_w1
-
-          parental_warmth_w2 ~~ self_control_w2
-          parental_warmth_w3 ~~ self_control_w3
-          parental_warmth_w1 ~~ self_control_w1"
-
-m2_urs <- sem(m2_urs, data = final_df)
-summary(m2_urs)
-
-m2_rs <- "parental_warmth_w3 ~ 1 + self_control_w2 + a*parental_warmth_w2
-          self_control_w3 ~ 1 + parental_warmth_w2 + b*self_control_w2
-          parental_warmth_w2 ~ 1 + self_control_w1 + a*parental_warmth_w1
-          self_control_w2 ~ 1 + parental_warmth_w1 + b*self_control_w1
-
-          parental_warmth_w2 ~~ self_control_w2
-          parental_warmth_w3 ~~ self_control_w3
-          parental_warmth_w1 ~~ self_control_w1"
-
-m2_rs <- sem(m2_rs, data = final_df)
-summary(m2_rs)
-
-anova(m2_urs, m2_rs) 
-```
-
-Model comparison indicates that the restricted model has a better fit to the observed data than the unrestricted model, so the restricted model is used.
+Model comparison indicates that the unrestricted model fits the observed data better than the unrestricted model, so the unrestricted model is preferred.
 
 ![**Figure 2. Cross-Lag Model on the relationships between parental warmth and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_2.png)
 
-\n The relationship between parental support and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (β = .55 and .57). However, no cross-lagged effect between parental support and self-control at any wave was significant.
+\n Self-control exhibited stability across waves (Wave 2: β = 0.47, p \< .001; Wave 3: β = 0.48, p \< .001), indicating that self-control remains relatively stable over time.
+
+The relationship between parental support and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (Wave 2: β = .47, p \< .001; Wave 3: β = .48, p \< .001). However, no cross-lagged effect between parental support and self-control at any wave was significant.
 
 ### iii. Peer Support on Emotional Outcome
-
-```         
-m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
-          emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
-          peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
-          emotion_w2 ~ 1 + peer_support_w1 + emotion_w1
-
-          peer_support_w2 ~~ emotion_w2
-          peer_support_w3 ~~ emotion_w3
-          peer_support_w1 ~~ emotion_w1"
-
-m3_pse <- sem(m3_pse, data = final_df)
-summary(m3_pse)
-stand_m3 <- standardizedsolution(m3_pse)
-stand_m3
-
-m3_pse_restricted <- "peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
-                      emotion_w3 ~ 1 + b*peer_support_w2 + c*emotion_w2
-                      peer_support_w2 ~ 1 + emotion_w1 + b*peer_support_w1
-                      emotion_w2 ~ 1 + b*peer_support_w1 + c*emotion_w1
-                      
-                      peer_support_w2 ~~ emotion_w2
-                      peer_support_w3 ~~ emotion_w3
-                      peer_support_w1 ~~ emotion_w1
-                      "
-
-m3_pse_restricted <- sem(m3_pse_restricted, data = final_df)
-summary(m3_pse_restricted)
-
-
-anova(m3_pse, m3_pse_restricted)
-```
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
@@ -234,37 +159,6 @@ Model comparison indicates that the restricted model fits the observed data sign
 For the cross-lagged effects, peer support at Wave 2 was positively associated with emotional symptoms at Wave 3 (β = .13, p = .00). This effect is unidirectional because emotional symptoms at Wave 2 were not associated with peer support at Wave 3 (β = .04, p = .33). However, emotional symptoms at Wave 1 were not significantly associated with peer support at Wave 2 (β = -.06, p = .16). In contrast, the reverse effect, peer support at Wave 1 positively associated with emotional symptoms at Wave 2, was significant (β = .42, p \< .001).
 
 ### iv. Parental Support on Self-Control
-
-```         
-m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
-          self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
-          peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
-          self_control_w2 ~ 1 + peer_support_w1 + self_control_w1
-
-          peer_support_w2 ~~ self_control_w2
-          peer_support_w3 ~~ self_control_w3
-          peer_support_w1 ~~ self_control_w1"
-
-m4_psb <- sem(m4_psb, data = final_df)
-summary(m4_psb)
-stand_m4 <- standardizedsolution(m4_psb)
-stand_m4
-
-m4_psb_restricted <- "peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
-                      self_control_w3 ~ 1 + b*peer_support_w2 + c*self_control_w2
-                      peer_support_w2 ~ 1 + self_control_w1 + b*peer_support_w1
-                      self_control_w2 ~ 1 + b*peer_support_w1 + c*self_control_w1
-                      
-                      peer_support_w2 ~~ self_control_w2
-                      peer_support_w3 ~~ self_control_w3
-                      peer_support_w1 ~~ self_control_w1
-                      "
-
-m4_psb_restricted <- sem(m4_psb_restricted, data = final_df)
-summary(m4_psb_restricted)
-
-anova(m4_psb, m4_psb_restricted)
-```
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
@@ -278,7 +172,7 @@ In terms of the cross-lagged effects, peer support at Wave 2 did not show a sign
 
 ## Parental & Peer Support on Emotional Outcomes
 
-Parental support was associated with reduced emotional symptoms at each wave and predicted them in the third wave. Our finding is consistent with our hypothesis and agrees with many previous literature on the protective effect of parental support on internalizing and externalizing symptoms in children and adolescents (Butterfield et al., 2022; Mccarthy et al., 2005). However, this predictive effect was not found in the transitioning year when the emotional symptoms during transition predicted perceived parental support at the start of secondary school. In other words, pupils’ emotional conditions during transition shape how they perceive and receive parental support, which helps them navigate through social and academic challenges during the first year. This pattern is consistent with the transactional model of parenting, which argues a bidirectional influence between the parent and the child: Children’s internalizing and externalizing problems may encourage patterns to adopt a harsh parenting style, which further contributes to behavioural problems, suggesting a cyclical relationship (Lansford et al., 2018; Tiberio et al., 2016).
+Parental support was associated with reduced emotional symptoms at each wave and predicted them in the third wave. Our finding is consistent with our hypothesis and agrees with many previous literature on the protective effect of parental support on internalizing and externalizing symptoms in children and adolescents (Butterfield et al., 2020; Mccarthy et al., 2005). However, this predictive effect was not found in the transitioning year when the emotional symptoms during transition predicted perceived parental support at the start of secondary school. In other words, pupils’ emotional conditions during transition shape how they perceive and receive parental support, which helps them navigate through social and academic challenges during the first year. This pattern is consistent with the transactional model of parenting, which argues a bidirectional influence between the parent and the child: Children’s internalizing and externalizing problems may encourage patterns to adopt a harsh parenting style, which further contributes to behavioural problems, suggesting a cyclical relationship (Lansford et al., 2018; Tiberio et al., 2016).
 
 Similarly, Peer support at Wave 2 positively influenced emotional symptoms at Wave 3, highlighting the critical role of peer interactions in emotional well-being. However, contradicting the hypothesis, early peer support predicted increased emotional distress at Wave 2, suggesting that peer interactions can also introduce stressors.
 
@@ -296,8 +190,38 @@ Additionally, it is essential to acknowledge that teacher support could differ f
 
 ## Implications
 
-Looking at the longitudinal relationship between peer support and emotional and behavioural outcomes is explicitly particularly important during the transition period from primary to secondary school, as it is a critical period where peer relationships are intricately linked to children's social and emotional development. Understanding how peer support influences emotional and behavioural outcomes can provide insights into how peer interactions shape children's well-being (Afandi & Ismail, 2022).
+Looking at the longitudinal relationship between peer support and emotional and behavioural outcomes is explicitly particularly important during the transition period from primary to secondary school, as it is a critical period where peer relationships are intricately linked to children's social and emotional development. Understanding how parental and peer support influences emotional and behavioural outcomes can provide insights into how peer interactions shape children's well-being.
 
-Moreover, our longitudinal approach, which focuses on real-time outcomes rather than retrospective reports, enables us to capture the immediate impact of peer support and the dynamic changes in emotional and self-control outcomes. This approach offers a more accurate and timely understanding of how peer support influences students during this critical period. By providing support exactly when it is most needed, our research can significantly enhance students' overall well-being and development during their transition to secondary school.
+Moreover, by using a longitudinal approach, which focuses on real-time outcomes rather than retrospective reports, the study is able to capture the immediate impact of peer support and the dynamic changes in emotional and self-control outcomes. This approach offers a more accurate and timely understanding of how peer support influences students during this critical period. By providing support exactly when it is most needed, our research can significantly enhance students' overall well-being and development during their transition to secondary school.
 
 # 5. References
+
+Boyd, R. J., & Higgins, G. E. (2006). Can Parental Support Mediate the Link between Low Self‐Control and Deviance? Criminal Justice Studies, 19(3), 257–273. <https://doi.org/10.1080/14786010600921654>
+
+Butterfield, R. D., Silk, J. S., Lee, K. H., Siegle, G. S., Dahl, R. E., Forbes, E. E., Ryan, N. D., Hooley, J. M., & Ladouceur, C. D. (2021). Parents still matter! Parental warmth predicts adolescent brain function and anxiety and depressive symptoms 2 years later. Development and Psychopathology, 33(1), 226–239. <https://doi.org/10.1017/S0954579419001718>
+
+Çelik, O. (2024). Academic motivation in adolescents: The role of parental autonomy support, psychological needs satisfaction and self-control. Frontiers in Psychology, 15. <https://doi.org/10.3389/fpsyg.2024.1384695>
+
+Hostinar, C. E., Johnson, A. E., & Gunnar, M. R. (2015). Early Social Deprivation and the Social Buffering of Cortisol Stress Responses in Late Childhood: An Experimental Study. Developmental Psychology, 51(11), 1597. <https://doi.org/10.1037/dev0000029>
+
+Lansford, J. E., Rothenberg, W. A., Jensen, T. M., Lippold, M. A., Bacchini, D., Bornstein, M. H., Chang, L., Deater-Deckard, K., Di Giunta, L., Dodge, K. A., Malone, P. S., Oburu, P., Pastorelli, C., Skinner, A. T., Sorbring, E., Steinberg, L., Tapanya, S., Uribe Tirado, L. M., Alampay, L. P., & Al-Hassan, S. M. (2018). Bidirectional Relations Between Parenting and Behavior Problems From Age 8 to 13 in Nine Countries. Journal of Research on Adolescence, 28(3), 571–590. <https://doi.org/10.1111/jora.12381>
+
+Lorijn, S. J., Zwier, D., Laninga-Wijnen, L., Huisman, M., & Veenstra, R. (2024). A New School, a Fresh Start? Change and Stability in Peer Relationships and Academic Performance in the Transition from Primary to Secondary School. Journal of Youth and Adolescence. <https://doi.org/10.1007/s10964-024-01991-y>
+
+Mccarty, C. A., Zimmerman, F. J., Digiuseppe, D. L., & Christakis, D. A. (2005). Parental Emotional Support and Subsequent Internalizing and Externalizing Problems Among Children. Journal of Developmental & Behavioral Pediatrics, 26(4), 267.
+
+Morneau‐Vaillancourt, G., Oginni, O., Assary, E., Krebs, G., Thompson, E. J., Palaiologou, E., Lockhart, C., Arseneault, L., & Eley, T. C. (2023). A cross‐lagged twin study of emotional symptoms, social isolation and peer victimisation from early adolescence to emerging adulthood. Journal of Child Psychology and Psychiatry, 64(11), 1569–1582. <https://doi.org/10.1111/jcpp.13847>
+
+Ng-Knight, T., Shelton, K. H., Riglin, L., McManus, I. C., Frederickson, N., & Rice, F. (2016). A longitudinal study of self-control at the transition to secondary school: Considering the role of pubertal status and parenting. Journal of Adolescence, 50, 44–55. <https://doi.org/10.1016/j.adolescence.2016.04.006>
+
+Pei, R., Courtney, A. L., Ferguson, I., Brennan, C., & Zaki, J. (2023). A neural signature of social support mitigates negative emotion. Scientific Reports, 13(1), 17293. <https://doi.org/10.1038/s41598-023-43273-w>
+
+Phythian, K. (2008). Family Structure and Parental Behavior: Identifying the Sources of Adolescent Self-Control.
+
+Ryan, R. M., & Deci, E. L. (2020). Intrinsic and extrinsic motivation from a self-determination theory perspective: Definitions, theory, practices, and future directions. Contemporary Educational Psychology, 61, 101860. <https://doi.org/10.1016/j.cedpsych.2020.101860>
+
+Tiberio, S. S., Capaldi, D. M., Kerr, D. C. R., Bertrand, M., Pears, K. C., & Owen, L. (2016). Parenting and the development of effortful control from early childhood to early adolescence: A transactional developmental model. Development and Psychopathology, 28(3), 837–853. <https://doi.org/10.1017/S0954579416000341>
+
+Virtanen, T. E., Vasalampi, K., Torppa, M., Lerkkanen, M.-K., & Nurmi, J.-E. (2019). Changes in students’ psychological well-being during transition from primary school to lower secondary school: A person-centered approach. Learning and Individual Differences, 69, 138–149. <https://doi.org/10.1016/j.lindif.2018.12.001>
+
+Zeedyk, M. S., Werritty, I., & Riach, C. (2003). Promoting Emotional Health through a Parenting Support Programme: What Motivates Parents to Enrol? International Journal of Mental Health Promotion, 5(4), 21–31. <https://doi.org/10.1080/14623730.2003.9721915>
