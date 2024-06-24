@@ -7,8 +7,6 @@ output:
     toc: true
 ---
 
-**DATASET 1:** Rice, F., Riglin, L., Ng-Knight, T., Frederickson, N., Shelton, K., I Chris, M. (2017).A longitudinal multi-informant study of psychological adjustment and academic attainment over the transition from primary school to secondary school. [data collection]. UK Data Service. SN: 852714,DOI: 10.5255/UKDA-SN-852714
-
 # 1. Background Information
 
 The transition from primary to secondary school is a pivotal period marked by substantial changes in the school environment, social interactions, and academic expectations, as it can affect students' health outcomes and development (Rice et al., 2011). Children often experience mixed emotions during this time: they look forward to increased freedom and new friendships but also express concerns about peer relationships, getting lost, and the anxiety associated with a heavier course workload (Zeedyk et al., 2003). These heightened worries align with the onset of anxiety disorders, which become more prominent in early adolescence (Kessler et al., 2005). In addition to emotional challenges, behavioural factors like self-control significantly impact how well children adjust to secondary school. A longitudinal study found that children with better self-control adapted more successfully to the secondary education environment and achieved higher grades in English, math, and science (Ng-Knight et al., 2016). Given the close link between emotional and behavioural outcomes and successful transitions, exploring how environmental factors, specifically parental and peer support, can enhance these outcomes and facilitate a smoother transition is beneficial.
@@ -71,7 +69,7 @@ The study involves pupils from mixed non-selective secondary schools in South-Ea
 
 **Demographics:**
 
-```{r}
+```         
 # Total number of participants
 total_participants <- nrow(final_df)
 
@@ -103,13 +101,13 @@ print(demographics)
 
 ## Measures
 
-*The study utilizes the Strengths and Difficulties Questionnaire (SDQ) to measure emotional symptoms and the Brief Self-Control Scale (BSCS) to measure self-control, along with various questionnaires to assess parental and peer support.* 
+*The study utilizes the Strengths and Difficulties Questionnaire (SDQ) to measure emotional symptoms and the Brief Self-Control Scale (BSCS) to measure self-control, along with various questionnaires to assess parental and peer support.*
 
 # 3. Analysis
 
 ## Descriptive Statistics
 
-```{r}
+```
 # overall descriptive statistics for each wave
 wave1_descriptive <- variable_final_df %>%
   select(`Parental Warmth 1`, `Peer Support 1`, `Emotional Symptoms 1`, `Self-Control 1`) %>%
@@ -140,10 +138,10 @@ wave3_descriptive
 
 ## Correlation Matrix
 
-Table 1. Correlation matrix of all variables measured at three waves
+*Table 1. Correlation matrix of all variables measured at three waves*
 
-```{r}
-cor_vars <- final_df[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]
+```
+{cor_vars <- final_df[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]}
 
 correlation_result <- corr.test(cor_vars, use = "pairwise.complete.obs")
 
@@ -161,7 +159,7 @@ Likewise, emotional symptoms exhibited positive correlations with peer support a
 
 ### i. Parental Support on Emotional Outcome
 
-```{r}
+```
 m1_urs <- "
   parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
   emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
@@ -193,7 +191,7 @@ anova(m1_urs, m1_rs)
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
-```{r}
+```
 clm_1 <- semPaths(m1_urs, whatLabels = "std",
          layout = layout_1,
          edge.label.cex = 1.2,
@@ -214,7 +212,7 @@ The relationship between parental support and emotional symptoms is shown in the
 
 ### ii. Parental Support on Self-Control
 
-```{r}
+```
 m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
           self_control_w3 ~ 1 + parental_warmth_w2 + self_control_w2
           parental_warmth_w2 ~ 1 + self_control_w1 + parental_warmth_w1
@@ -244,7 +242,7 @@ anova(m2_urs, m2_rs)
 
 Model comparison indicates that the restricted model has a better fit to the observed data than the unrestricted model, so the restricted model is used.
 
-```{r}
+```
 clm_2 <- semPaths(m2_rs, whatLabels = "std",
                   layout = layout_2,
                   edge.label.cex = 1.2,
@@ -265,7 +263,7 @@ The relationship between parental support and self-control is shown in the path 
 
 ### iii. Peer Support on Emotional Outcome
 
-```{r}
+```
 m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
           emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
           peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
@@ -299,7 +297,7 @@ anova(m3_pse, m3_pse_restricted)
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
-```{r}
+```
 clm_3 <- semPaths(m3_pse, whatLabels = "std",
                   layout = layout_3,
                   edge.label.cex = 1.2,
@@ -322,7 +320,7 @@ For the cross-lagged effects, peer support at Wave 2 was positively associated w
 
 ### iv. Parental Support on Self-Control
 
-```{r}
+```
 m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
           self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
           peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
@@ -355,7 +353,7 @@ anova(m4_psb, m4_psb_restricted)
 
 Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
 
-```{r}
+```
 clm_4 <- semPaths(m4_psb, whatLabels = "std",
                   layout = layout_4,
                   edge.label.cex = 1.2,
