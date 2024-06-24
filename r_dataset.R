@@ -432,7 +432,7 @@ layout_1 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 # Visualize the model with the custom layout
-png(filename = "../team_1_project/plots/clm_1.png", width = 1500, height = 1500, units = "px")
+png(filename = "../team_1_project/plots/clm_1.png", width = 900, height = 900, units = "px")
 clm_1 <- semPaths(m1_urs, whatLabels = "std",
          layout = layout_1,
          edge.label.cex = 1.2,
@@ -452,7 +452,7 @@ layout_2 <- matrix(c(
   "self_control_w1", "self_control_w2", "self_control_w3"
 ), nrow = 2, byrow = TRUE)
 
-png(filename = "../team_1_project/plots/clm_2.png", width = 1500, height = 1500, units = "px")
+png(filename = "../team_1_project/plots/clm_2.png", width = 900, height = 900, units = "px")
 clm_2 <- semPaths(m2_rs, whatLabels = "std",
                   layout = layout_2,
                   edge.label.cex = 1.2,
@@ -473,7 +473,7 @@ layout_3 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 # Visualize the model with the custom layout
-png(filename = "../team_1_project/plots/clm_3.png", width = 1500, height = 1500, units = "px")
+png(filename = "../team_1_project/plots/clm_3.png", width = 900, height = 900, units = "px")
 clm_3 <- semPaths(m3_pse, whatLabels = "std",
                   layout = layout_3,
                   edge.label.cex = 1.2,
@@ -493,7 +493,7 @@ layout_4 <- matrix(c(
   "self_control_w1", "self_control_w2", "self_control_w3"
 ), nrow = 2, byrow = TRUE)
 
-png(filename = "../team_1_project/plots/clm_4.png", width = 1500, height = 1500, units = "px")
+png(filename = "../team_1_project/plots/clm_4.png", width = 900, height = 900, units = "px")
 clm_4 <- semPaths(m4_psb, whatLabels = "std",
                   layout = layout_4,
                   edge.label.cex = 1.2,
