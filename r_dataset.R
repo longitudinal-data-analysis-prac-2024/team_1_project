@@ -7,6 +7,8 @@ library(lavaan)
 library(semPlot)
 library(psych)
 library(dplyr)
+library(MVN)
+library(robustbase)
 
 
 df <- read.spss("q1_dataset.sav", to.data.frame = T)
@@ -165,7 +167,6 @@ sdq_emotion <- cl_df(5, 5, sdq_emotion, c('C3_B3', 'C3_B8', 'C3_B13', 'C3_B16', 
 #______________________________ Self Control DV _______________________________________-
 
 # ii) Brief Self-Control Scale (BSCS): behavioral-regulation outcome
-  #SDQ inattention: i) SDQ: inattention outcomes subscale dataframe
 self_control <- as_tibble(df) %>% 
   select(ID, C1_SControl1, C1_SControl2, C1_SControl3, C1_SControl4, C1_SControl5, C1_SControl6, C1_SControl7, C1_SControl8, C1_SControl9, C1_SControl10, C1_SControl11, C1_SControl12, C1_SControl13, C2_SControl1, C2_SControl2, C2_SControl3, C2_SControl4, C2_SControl5, C2_SControl6, C2_SControl7, C2_SControl8, C2_SControl9, C2_SControl10, C2_SControl11, C2_SControl12, C2_SControl13, C3_SControl1, C3_SControl2, C3_SControl3, C3_SControl4, C3_SControl5, C3_SControl6, C3_SControl7, C3_SControl8, C3_SControl9, C3_SControl10, C3_SControl11, C3_SControl12, C3_SControl13) %>%
   unique() %>%
@@ -181,20 +182,23 @@ self_control <- self_control %>%
 
 print(self_control)
 
-#1) self control  reverse code
+# self control  reverse code w1
 self_control <- rv_vars(self_control, 6, c('C1_SControl2', 'C1_SControl3', 'C1_SControl4', 'C1_SControl5', 'C1_SControl7', 'C1_SControl9', 'C1_SControl10', 'C1_SControl12', 'C1_SControl13'))
-
-self_control <- rv_vars(self_control, 6, c('C2_SControl2', 'C2_SControl3', 'C2_SControl4', 'C2_SControl5', 'C2_SControl7', 'C2_SControl9', 'C2_SControl10', 'C2_SControl12', 'C2_SControl13'))
-
-self_control <- rv_vars(self_control, 6, c('C3_SControl2', 'C3_SControl3', 'C3_SControl4', 'C3_SControl5', 'C3_SControl7', 'C3_SControl9', 'C3_SControl10', 'C3_SControl12', 'C3_SControl13'))
 
 # Calculate self-control composite score for Wave 1
 self_control <- cl_df(13, 1, self_control, c('C1_SControl1', 'C1_SControl2', 'C1_SControl3', 'C1_SControl4', 'C1_SControl5', 'C1_SControl6','C1_SControl7', 'C1_SControl8','C1_SControl9', 'C1_SControl10', 'C1_SControl11','C1_SControl12', 'C1_SControl13')) %>%
   rename(self_control_w1 = mean_score)
 
+# self control  reverse code w2
+self_control <- rv_vars(self_control, 6, c('C2_SControl2', 'C2_SControl3', 'C2_SControl4', 'C2_SControl5', 'C2_SControl7', 'C2_SControl9', 'C2_SControl10', 'C2_SControl12', 'C2_SControl13'))
+
 # Calculate self-control composite score for Wave 2
 self_control <- cl_df(13, 1, self_control, c('C2_SControl1', 'C2_SControl2', 'C2_SControl3', 'C2_SControl4', 'C2_SControl5', 'C2_SControl6','C2_SControl7', 'C2_SControl8','C2_SControl9', 'C2_SControl10', 'C2_SControl11','C2_SControl12', 'C2_SControl13')) %>%
   rename(self_control_w2 = mean_score)
+
+self_control <- rv_vars(self_control, 6, c('C3_SControl2', 'C3_SControl3', 'C3_SControl4', 'C3_SControl5', 'C3_SControl7', 'C3_SControl9', 'C3_SControl10', 'C3_SControl12', 'C3_SControl13'))
+
+#self control  reverse code w3
 
 # Calculate self-control composite score for Wave 3
 self_control <- cl_df(13, 1, self_control, c('C3_SControl1', 'C3_SControl2', 'C3_SControl3', 'C3_SControl4', 'C3_SControl5', 'C3_SControl6','C3_SControl7', 'C3_SControl8','C3_SControl9', 'C3_SControl10', 'C3_SControl11','C3_SControl12', 'C3_SControl13')) %>%
@@ -202,7 +206,7 @@ self_control <- cl_df(13, 1, self_control, c('C3_SControl1', 'C3_SControl2', 'C3
 
 # Create final_df with ID and composite scores
 final_df <- df %>%
-  select(ID, parental_warmth_w1, parental_warmth_w2, parental_warmth_w3, Gender, Age_C1) %>%
+  select(ID, parental_warmth_w1, parental_warmth_w2, parental_warmth_w3, Gender, Age_C1,SENstatus, Ethnicity5) %>%
   left_join(select(loneliness_recode, ID, peer_support_w1, peer_support_w2, peer_support_w3), by = "ID") %>%
   left_join(select(sdq_emotion, ID, emotion_w1, emotion_w2, emotion_w3), by = "ID") %>%
   left_join(select(self_control, ID, self_control_w1, self_control_w2, self_control_w3), by = "ID") %>%
@@ -210,9 +214,10 @@ final_df <- df %>%
 
 final_df
 
+
 #METHODS: DEMOGRAPHICS ---------------------------------------
-# Total number of participants
-total_participants <- nrow(final_df)
+total_participants <- final_df %>% 
+  summarize(Count = n())
 
 final_df <- final_df %>%
   filter(!is.na(Age_C1))
@@ -231,6 +236,20 @@ gender_counts <- final_df %>%
   group_by(Gender) %>% 
   summarize(Count = n())
 
+#Ethnicity
+ethnicity <- final_df %>% 
+  group_by(Ethnicity5) %>% 
+  summarize(Count = n())
+
+ethnicity
+
+#SEN
+sen <- final_df %>% 
+  group_by(SENstatus) %>% 
+  summarize(Count = n())
+
+sen
+
 # Create a table with the demographic information
 demographics <- data.frame(
   Demographic = c('Total Participants: ', 'Age Range: ', 'Mean Age: ', 'Age SD: ', paste0('Gender: ', gender_counts$Gender)),
@@ -240,9 +259,70 @@ demographics <- data.frame(
 # Display the table
 print(demographics)
 
+#-------- REMOVE OUTLIERS USING IQR--
+variables_to_test <- final_df %>% 
+  select(ID, parental_warmth_w1, parental_warmth_w2, parental_warmth_w3, 
+         peer_support_w1, peer_support_w2, peer_support_w3, 
+         emotion_w1, emotion_w2, emotion_w3, 
+         self_control_w1, self_control_w2, self_control_w3)
+
+# Create box plots for relevant variables
+box_plot_data <- final_df %>%
+  select(parental_warmth_w1, parental_warmth_w2, parental_warmth_w3,
+         peer_support_w1, peer_support_w2, peer_support_w3,
+         emotion_w1, emotion_w2, emotion_w3,
+         self_control_w1, self_control_w2, self_control_w3) %>%
+  pivot_longer(cols = everything(), names_to = "variable", values_to = "value")
+
+box_plot <- ggplot(box_plot_data, aes(x = variable, y = value)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+print(box_plot)
+
+# Save the plot
+ggsave("combined_box_plots.png", plot = box_plot, width = 12, height = 8)
+
+# Define the variables of interest
+variables <- c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", 
+               "peer_support_w1", "peer_support_w2", "peer_support_w3", 
+               "emotion_w1", "emotion_w2", "emotion_w3", 
+               "self_control_w1", "self_control_w2", "self_control_w3")
+
+# Function to identify outliers using IQR method
+identify_outliers <- function(df, var) {
+  Q1 <- quantile(df[[var]], 0.25, na.rm = TRUE)
+  Q3 <- quantile(df[[var]], 0.75, na.rm = TRUE)
+  IQR <- Q3 - Q1
+  lower_bound <- Q1 - 1.5 * IQR
+  upper_bound <- Q3 + 1.5 * IQR
+  outliers <- which(df[[var]] < lower_bound | df[[var]] > upper_bound)
+  return(outliers)
+}
+
+# Identify outliers for all variables and combine them
+all_outliers <- unique(unlist(lapply(variables, function(var) identify_outliers(final_df, var))))
+
+# Create a clean dataframe excluding the outliers
+final_df_clean <- final_df[-all_outliers, ]
+
+# Check the dimensions of the cleaned dataframe
+dim(final_df_clean)
+
+# Optional: Plot boxplots for each variable in the cleaned dataframe
+box_plot_data_clean <- final_df_clean %>%
+  select(all_of(variables)) %>%
+  pivot_longer(cols = everything(), names_to = "variable", values_to = "value")
+
+box_plot_clean <- ggplot(box_plot_data_clean, aes(x = variable, y = value)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+print(box_plot_clean)
+
 #------------------------DESCRIPTIVE STATISTICS----------------
 # Calculate overall descriptive statistics
-variable_final_df <- final_df %>%
+variable_final_df <- final_df_clean %>%
   rename(
     "Parental Warmth 1" = parental_warmth_w1,
     "Peer Support 1" = peer_support_w1,
@@ -298,7 +378,7 @@ m1_urs <- "
   parental_warmth_w1 ~~ emotion_w1
 "
 
-m1_urs <- sem(m1_urs, data = final_df)
+m1_urs <- sem(m1_urs, data = final_df_clean)
 summary(m1_urs)
 
 m1_rs <- "parental_warmth_w3 ~ 1 + emotion_w2 + a*parental_warmth_w2
@@ -310,11 +390,18 @@ m1_rs <- "parental_warmth_w3 ~ 1 + emotion_w2 + a*parental_warmth_w2
           parental_warmth_w3 ~~ emotion_w3
           parental_warmth_w1 ~~ emotion_w1"
 
-m1_rs <- sem(m1_rs, data = final_df)
+m1_rs <- sem(m1_rs, data = final_df_clean)
 summary(m1_rs)
 
+stand_m1 <- standardizedsolution(m1_urs)
+stand_m1
+
 anova(m1_urs, m1_rs) 
-#Chi-square comparison indicates that unrestricted model is significantly better, so keep the unrestricted model.
+#Chi-square indicates that restricted model is not significantly better, so keep the urs model. 
+
+#final clm:
+m1_clm <- sem(m1_urs, data = final_df_clean, estimator = "MLR")
+summary(m1_clm, fit.measures = TRUE, standardized = TRUE)
 
 #---------- SEM: parental warmth vs self-control -----------------
 m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
@@ -326,7 +413,7 @@ m2_urs <- "parental_warmth_w3 ~ 1 + self_control_w2 + parental_warmth_w2
           parental_warmth_w3 ~~ self_control_w3
           parental_warmth_w1 ~~ self_control_w1"
 
-m2_urs <- sem(m2_urs, data = final_df)
+m2_urs <- sem(m2_urs, data = final_df_clean)
 summary(m2_urs)
 
 m2_rs <- "parental_warmth_w3 ~ 1 + self_control_w2 + a*parental_warmth_w2
@@ -338,14 +425,21 @@ m2_rs <- "parental_warmth_w3 ~ 1 + self_control_w2 + a*parental_warmth_w2
           parental_warmth_w3 ~~ self_control_w3
           parental_warmth_w1 ~~ self_control_w1"
 
-m2_rs <- sem(m2_rs, data = final_df)
+m2_rs <- sem(m2_rs, data = final_df_clean)
 summary(m2_rs)
 
 anova(m2_urs, m2_rs) 
-#Chi-square indicates that unrestricted model is not significantly better, so keep the rs model. 
+#Chi-square indicates that restricted model is not significantly better, so keep the urs model. 
+
+stand_m2 <- standardizedsolution(m2_urs)
+stand_m2
+
+#final clm:
+m2_clm <- sem(m2_urs, data = final_df_clean, estimator = "MLR")
+summary(m2_clm, fit.measures = TRUE, standardized = TRUE)
 
 #---------- SEM: peer support vs emotional symptoms -----------------
-m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
+m3_urs <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
           emotion_w3 ~ 1 + peer_support_w2 + emotion_w2
           peer_support_w2 ~ 1 + emotion_w1 + peer_support_w1
           emotion_w2 ~ 1 + peer_support_w1 + emotion_w1
@@ -354,12 +448,13 @@ m3_pse <- "peer_support_w3 ~ 1 + emotion_w2 + peer_support_w2
           peer_support_w3 ~~ emotion_w3
           peer_support_w1 ~~ emotion_w1"
 
-m3_pse <- sem(m3_pse, data = final_df)
-summary(m3_pse)
-stand_m3 <- standardizedsolution(m3_pse)
+m3_urs <- sem(m3_urs, data = final_df_clean)
+summary(m3_urs)
+
+stand_m3 <- standardizedsolution(m3_urs)
 stand_m3
 
-m3_pse_restricted <- "peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
+m3_rs <- "peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
                       emotion_w3 ~ 1 + b*peer_support_w2 + c*emotion_w2
                       peer_support_w2 ~ 1 + emotion_w1 + b*peer_support_w1
                       emotion_w2 ~ 1 + b*peer_support_w1 + c*emotion_w1
@@ -369,16 +464,19 @@ m3_pse_restricted <- "peer_support_w3 ~ 1 + emotion_w2 + b*peer_support_w2
                       peer_support_w1 ~~ emotion_w1
                       "
 
-m3_pse_restricted <- sem(m3_pse_restricted, data = final_df)
-summary(m3_pse_restricted)
+m3_rs <- sem(m3_rs, data = final_df_clean)
+summary(m3_rs)
 
+anova(m3_urs, m3_rs)
+#Chi-square comparison indicates that restricted model has a significantly poorer fit to data (p< .001), so the unrestricted model is kept. 
 
-anova(m3_pse, m3_pse_restricted)
-#Chi-square comparison indicates that unrestricted model has a poorer fit to data (p< .001), so the unrestricted model is kept. 
+#final clm:
+m3_clm <- sem(m3_urs, data = final_df_clean, estimator = "MLR")
+summary(m3_clm, fit.measures = TRUE, standardized = TRUE)
 
 #---------- SEM: peer support vs behavioural (self-control) outcomes-----------------
 
-m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
+m4_urs <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
           self_control_w3 ~ 1 + peer_support_w2 + self_control_w2
           peer_support_w2 ~ 1 + self_control_w1 + peer_support_w1
           self_control_w2 ~ 1 + peer_support_w1 + self_control_w1
@@ -387,12 +485,13 @@ m4_psb <- "peer_support_w3 ~ 1 + self_control_w2 + peer_support_w2
           peer_support_w3 ~~ self_control_w3
           peer_support_w1 ~~ self_control_w1"
 
-m4_psb <- sem(m4_psb, data = final_df)
-summary(m4_psb)
-stand_m4 <- standardizedsolution(m4_psb)
+m4_urs <- sem(m4_urs, data = final_df_clean)
+summary(m4_urs)
+
+stand_m4 <- standardizedsolution(m4_urs)
 stand_m4
 
-m4_psb_restricted <- "peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
+m4_rs <- "peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
                       self_control_w3 ~ 1 + b*peer_support_w2 + c*self_control_w2
                       peer_support_w2 ~ 1 + self_control_w1 + b*peer_support_w1
                       self_control_w2 ~ 1 + b*peer_support_w1 + c*self_control_w1
@@ -402,16 +501,19 @@ m4_psb_restricted <- "peer_support_w3 ~ 1 + self_control_w2 + b*peer_support_w2
                       peer_support_w1 ~~ self_control_w1
                       "
 
-m4_psb_restricted <- sem(m4_psb_restricted, data = final_df)
-summary(m4_psb_restricted)
+m4_rs <- sem(m4_rs, data = final_df_clean)
+summary(m4_rs)
 
-anova(m4_psb, m4_psb_restricted)
+anova(m4_urs, m4_rs)
 #Model comparison indicates that unrestricted model has a poorer fit to data (p< .001), so the unrestricted model is kept.
 
+#final clm:
+m4_clm <- sem(m4_urs, data = final_df_clean, estimator = "MLR")
+summary(m4_clm, fit.measures = TRUE, standardized = TRUE)
 #_____________ GRAPHS____________________
 
 #-------------Plotting correlation matrix-----------------------------
-cor_vars <- final_df[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]
+cor_vars <- final_df_clean[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]
 
 correlation_result <- corr.test(cor_vars, use = "pairwise.complete.obs")
 
@@ -421,8 +523,8 @@ p_matrix <- correlation_result$p
 correlation_matrix <-  corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main="Correlation plot of all variables in three waves", xlas = 2)
 
 #save plot with specified format
-png(filename = "../team_1_project/plots/correlation_matrix.png", width = 1000, height = 1000, units = "px")
-corPlot(corr_matrix, upper = FALSE, numbers = TRUE, diag = FALSE, stars = TRUE, pval = p_matrix, main = "Correlation Plot of all variables across the Three Waves", cex = 0.8, cex.axis = 0.8, xlas = 2)
+png(filename = "../team_1_project/plots/correlation_matrix.png", width = 1500, height = 1500, units = "px")
+corPlot(corr_matrix, upper = FALSE, numbers = TRUE, diag = FALSE, stars = TRUE, pval = p_matrix, main = "Correlation Plot of all variables across the Three Waves", cex = 0.8, cex.axis = 0.8, xlas = 3)
 dev.off()
 
 #visualisation matrix
@@ -433,7 +535,7 @@ layout_1 <- matrix(c(
 
 # Visualize the model with the custom layout
 png(filename = "../team_1_project/plots/clm_1.png", width = 900, height = 900, units = "px")
-clm_1 <- semPaths(m1_urs, whatLabels = "std",
+clm_1_visual <- semPaths(m1_clm, whatLabels = "std",
          layout = layout_1,
          edge.label.cex = 1.2,
          curvePivot = TRUE,
@@ -453,7 +555,7 @@ layout_2 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 png(filename = "../team_1_project/plots/clm_2.png", width = 900, height = 900, units = "px")
-clm_2 <- semPaths(m2_rs, whatLabels = "std",
+clm_2_visual <- semPaths(m2_clm, whatLabels = "std",
                   layout = layout_2,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
@@ -474,7 +576,7 @@ layout_3 <- matrix(c(
 
 # Visualize the model with the custom layout
 png(filename = "../team_1_project/plots/clm_3.png", width = 900, height = 900, units = "px")
-clm_3 <- semPaths(m3_pse, whatLabels = "std",
+clm_3_visual <- semPaths(m3_clm, whatLabels = "std",
                   layout = layout_3,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
@@ -494,7 +596,7 @@ layout_4 <- matrix(c(
 ), nrow = 2, byrow = TRUE)
 
 png(filename = "../team_1_project/plots/clm_4.png", width = 900, height = 900, units = "px")
-clm_4 <- semPaths(m4_psb, whatLabels = "std",
+clm_4_visual <- semPaths(m4_clm, whatLabels = "std",
                   layout = layout_4,
                   edge.label.cex = 1.2,
                   curvePivot = TRUE,
@@ -509,7 +611,8 @@ clm_4 <- semPaths(m4_psb, whatLabels = "std",
 dev.off()
 
 # Plot each clm object individually
-plot(clm_1)
-plot(clm_2)
-plot(clm_3)
-plot(clm_4)
+plot(clm_1_visual)
+plot(clm_2_visual)
+plot(clm_3_visual)
+plot(clm_4_visual)
+
