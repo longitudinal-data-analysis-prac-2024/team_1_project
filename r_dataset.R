@@ -283,7 +283,7 @@ box_plot <- ggplot(box_plot_data, aes(x = variable, y = value)) +
 print(box_plot)
 
 # Save the plot
-ggsave("../team_1_project/plots/combined_box_plots.png", plot = box_plot, width = 12, height = 8)
+ggsave("../team_1_project/plots/combined_box_plots.png", plot = box_plot, width = 8, height = 5)
 
 # Define the variables of interest
 variables <- c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", 
@@ -370,7 +370,8 @@ wave3_descriptive
 final_total_participants <- final_df_clean %>% 
   summarize(Count = n())
 final_total_participants
-#--------------------- SEM: parental warmth vs emotional symptoms ----------------------
+
+#-------------SEM: parental warmth vs emotional symptoms----------------------
 library(lavaan)
 
 m1_urs <- "
@@ -516,6 +517,7 @@ anova(m4_urs, m4_rs)
 #final clm:
 m4_clm <- sem(m4_urs, data = final_df_clean, estimator = "MLR")
 summary(m4_clm, fit.measures = TRUE, standardized = TRUE)
+
 #_____________ GRAPHS____________________
 
 #-------------Plotting correlation matrix-----------------------------
