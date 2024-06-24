@@ -3,8 +3,6 @@ title: "Team 1 Project"
 output:
   html_document:
     toc: true
-  pdf_document:
-    toc: true
 ---
 
 # 1. Background Information
@@ -69,35 +67,15 @@ The study involves pupils from mixed non-selective secondary schools in South-Ea
 
 **Demographics:**
 
-```         
-# Total number of participants
-total_participants <- nrow(final_df)
+Total number of participants: 626
 
-final_df <- final_df %>%
-  filter(!is.na(Age_C1))
+Gender: 
+- Male: 310
+- Female: 316
 
-# Age range
-age_range <- range(final_df$Age_C1_years)
-
-# Mean age
-mean_age <- mean(final_df$Age_C1_years)
-
-# Age standard deviation
-age_sd <- sd(final_df$Age_C1)
-
-# Gender counts
-gender_counts <- final_df %>% 
-  group_by(Gender) %>% 
-  summarize(Count = n())
-
-# table with the demographic information
-demographics <- data.frame(
-  Demographic = c('Total Participants: ', 'Age Range: ', 'Mean Age: ', 'Age SD: ', paste0('Gender: ', gender_counts$Gender)),
-  N = c(total_participants, paste(round(age_range, 2), collapse = " - "), round(mean_age, 2), round(age_sd, 2), as.character(gender_counts$Count))
-)
-
-print(demographics)
-```
+Age: 
+- Mean (SD): 11.22 years (3.53)
+- Range: 10.67 - 11.92 years
 
 ## Measures
 
@@ -107,7 +85,27 @@ print(demographics)
 
 ## Descriptive Statistics
 
-```
+| **Wave 1**    | Mean (SD)|
+| ----------- | ----------- |
+| Parental Warmth | 37.51 (5.73) |
+| Peer Support   | 25.12 (9.57) |
+| Emotional Symptoms   | 2.11 (2.08) |
+| Self-Control   | 3.88 (0.71) |
+
+| **Wave 2**    | Mean (SD)|
+| ----------- | ----------- |
+| Parental Warmth | 37.05 (6.47) |
+| Peer Support   | 17.19 (3.18) |
+| Emotional Symptoms   | 2.15 (2.14) |
+| Self-Control   | 3.72 (0.68) |
+
+| **Wave 3**    | Mean (SD)|
+| ----------- | ----------- |
+| Parental Warmth | 37.56 (6.57) |
+| Peer Support   | 17.19 (3.18) |
+| Emotional Symptoms   | 2.15 (2.14) |
+| Self-Control   | 3.72 (0.68) |
+
 # overall descriptive statistics for each wave
 wave1_descriptive <- variable_final_df %>%
   select(`Parental Warmth 1`, `Peer Support 1`, `Emotional Symptoms 1`, `Self-Control 1`) %>%
