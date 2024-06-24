@@ -9,6 +9,8 @@ library(psych)
 library(dplyr)
 library(MVN)
 library(robustbase)
+library(ggcorrplot)
+
 
 
 df <- read.spss("q1_dataset.sav", to.data.frame = T)
@@ -281,7 +283,7 @@ box_plot <- ggplot(box_plot_data, aes(x = variable, y = value)) +
 print(box_plot)
 
 # Save the plot
-ggsave("combined_box_plots.png", plot = box_plot, width = 12, height = 8)
+ggsave("../team_1_project/plots/combined_box_plots.png", plot = box_plot, width = 12, height = 8)
 
 # Define the variables of interest
 variables <- c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", 
@@ -364,6 +366,10 @@ wave3_descriptive <- variable_final_df %>%
 wave1_descriptive
 wave2_descriptive
 wave3_descriptive
+
+final_total_participants <- final_df_clean %>% 
+  summarize(Count = n())
+final_total_participants
 #--------------------- SEM: parental warmth vs emotional symptoms ----------------------
 library(lavaan)
 
@@ -513,18 +519,47 @@ summary(m4_clm, fit.measures = TRUE, standardized = TRUE)
 #_____________ GRAPHS____________________
 
 #-------------Plotting correlation matrix-----------------------------
-cor_vars <- final_df_clean[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1","peer_support_w2","peer_support_w3","emotion_w1", "emotion_w2", "emotion_w3","self_control_w1","self_control_w2","self_control_w3")]
+# Function to add significance stars
+add_stars <- function(p_values) {
+  stars <- ifelse(p_values < 0.001, "***", ifelse(p_values < 0.01, "**", ifelse(p_values < 0.05, "*", "")))
+  return(stars)
+}
+
+# Generate labels with stars
+cor_labels <- matrix(paste0(round(corr_matrix, 2), add_stars(p_matrix)), nrow = nrow(corr_matrix))
+
+# Create a data frame for plotting
+plot_data <- data.frame(
+  row = rep(rownames(corr_matrix), ncol(corr_matrix)),
+  col = rep(colnames(corr_matrix), each = nrow(corr_matrix)),
+  corr = as.vector(corr_matrix),
+  p_value = as.vector(p_matrix),
+  label = as.vector(cor_labels)
+)
+
+#-------------Plotting correlation matrix-----------------------------
+cor_vars <- final_df_clean[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1", "peer_support_w2", "peer_support_w3", "emotion_w1", "emotion_w2", "emotion_w3", "self_control_w1", "self_control_w2", "self_control_w3")]
 
 correlation_result <- corr.test(cor_vars, use = "pairwise.complete.obs")
+correlation_result
 
 corr_matrix <- correlation_result$r
 p_matrix <- correlation_result$p
 
-correlation_matrix <-  corPlot(corr_matrix,upper = FALSE,numbers=TRUE,diag=FALSE,stars=TRUE, pval = p_matrix,main="Correlation plot of all variables in three waves", xlas = 2)
+new_labels <- c("Parental\nWarmth\nW1", "Parental\nWarmth\nW2", "Parental\nWarmth\nW3",
+                "Peer Support\nW1", "Peer Support\nW2", "Peer Support\nW3",
+                "Emotion W1", "Emotion W2", "Emotion W3",
+                "Self Control\nW1", "Self Control\nW2", "Self Control\nW3")
 
-#save plot with specified format
-png(filename = "../team_1_project/plots/correlation_matrix.png", width = 1500, height = 1500, units = "px")
-corPlot(corr_matrix, upper = FALSE, numbers = TRUE, diag = FALSE, stars = TRUE, pval = p_matrix, main = "Correlation Plot of all variables across the Three Waves", cex = 0.8, cex.axis = 0.8, xlas = 3)
+# Apply new labels to the correlation matrix and p-value matrix
+dimnames(corr_matrix) <- list(new_labels, new_labels)
+dimnames(p_matrix) <- list(new_labels, new_labels)
+
+# Save the plot with specified format
+png(filename = "../team_1_project/plots/correlation_matrix.png", width = 1000, height = 1000, units = "px")
+par(mar = c(12, 12, 4, 2)) # Adjust margins to prevent label cutoff
+corPlot(corr_matrix, upper = FALSE, numbers = TRUE, diag = FALSE, stars = TRUE, pval = p_matrix, 
+        main = "Correlation Plot of All Variables Across the Three Waves", cex = 1.3, cex.axis = 1.3, xlas = 2)
 dev.off()
 
 #visualisation matrix
