@@ -54,12 +54,6 @@ We used the questionnaire data from the short-term longitudinal study based on 7
 | Mixed              | 33           |
 | Other              | 17           |
 | NA                 | 71           |
-| **SEN Status**     |              |
-| None               | 475          |
-| School Action      | 59           |
-| School Action Plus | 22           |
-| Statement          | 6            |
-| NA                 | 64           |
 
 The assessed domains we selected for the present study includes:
 
