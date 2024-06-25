@@ -116,11 +116,15 @@ Whereas, emotional symptoms exhibited positive correlations with less peer suppo
 
 ## Cross-lag Models
 
+### Parental Warmth
+
+![**Table 2. Standardized beta coefficients from cross-lagged models of parental warmth, emotional outcome and self-control.**](plots/parental_warmth_table.png){width="361"}
+
 ### i. Parental Warmth on Emotional Outcome
 
 Model comparison using Chi-Squared Difference Test, AIC, and BIC values show that the restricted model is preferred because the unrestricted model does not have a significantly better fit, and the restricted model has fewer parameters and better parsimony.
 
-![**Figure 1. Cross-Lag Model on the relationships between parental warmth and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_1.png)
+![**Figure 2. Cross-Lag Model on the relationships between parental warmth and emotional outcomes across the transition from primary school (wave 1) to the start (wave 2) and end (wave 3) of Year 7**](plots/clm_1.png)
 
 \n The relationship between parental warmth and self-control is shown in the path diagram in Figure 1. Both parental warmth (Wave 2: β = .45, p \< .001; Wave 3: β = .52, p \< .001) and emotion (Wave 2: β = .45, p \< .001; Wave 3: β = .47, p \< .001) remained relatively stable across all three waves. However, no co-variances and cross-lagged effect between parental warmth and self-control at any wave was significant.
 
@@ -128,17 +132,21 @@ Model comparison using Chi-Squared Difference Test, AIC, and BIC values show tha
 
 Model comparison using Chi-Squared Difference Test, AIC, and BIC values show that the restricted model is preferred because the unrestricted model does not have a significantly better fit, and the restricted model has fewer parameters and better parsimony.
 
-![**Figure 2. Cross-Lag Model on the relationships between parental warmth and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_2.png)
+![**Figure 3. Cross-Lag Model on the relationships between parental warmth and self-control across the transition from primary school (wave 1) to the start (wave 2) and end (wave 3) of Year 7**](plots/clm_2.png)
 
 \n The relationship between parental warmth and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (Wave 2: β = .49, p \< .001; Wave 3: β = .46, p \< .001).
 
 A significant positive covariance is shown between parental warmth and self-control at each wave (Wave 1: β = .32, p \< .001; Wave 2: β = .27, p \< .001; Wave 3: β = .16, p = .013). However, no cross-lagged effect between parental support and self-control at any wave was significant.
 
+### Peer Support
+
+![**Table 3. Standardized beta coefficients from cross-lagged models of peer support, emotional outcome and self-control**](plots/peer_support_table.png){width="346"}
+
 ### iii. Peer Support on Emotional Outcome
 
 Based on the Chi-Squared Difference Test, AIC, and BIC values, the unrestricted model is preferred because it has significantly better fit (p\< .001) compared to the restricted model.
 
-![**Figure 3. Cross-Lag Model on the relationships between peer support and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_3.png)
+![**Figure 4. Cross-Lag Model on the relationships between peer support and emotional outcomes across the transition from primary school (wave 1) to the start (wave 2) and end (wave 3) of Year 7**](plots/clm_3.png)
 
 \n The relationship between less peer support and emotional symptoms is shown in the path diagram in Figure 3. Emotional symptoms remained relatively stable for variable stability across all three waves, with stability coefficients of β = .46 from Wave 2 to Wave 3 and β = .47 from Wave 1 to Wave 2. On the other hand, peer support was not stable across waves, with stability coefficients of β = .30 from Wave 1 to Wave 2 and β = -.39 from Wave 2 to Wave 3.
 
@@ -150,7 +158,7 @@ For the cross-lagged effects, emotional symptoms at Wave 2 were positively assoc
 
 Based on the Chi-Squared Difference Test, AIC, and BIC values, the unrestricted model is preferred because it has significantly better fit (p\< .001) compared to the restricted model.
 
-![**Figure 4. Cross-Lag Model on the relationships between peer support and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_4.png)
+![**Figure 5. Cross-Lag Model on the relationships between peer support and self-control across the transition from primary school (wave 1) to the start (wave 2) and end (wave 3) of Year 7**](plots/clm_4.png)
 
 \n The relationship between less peer support and self-control is shown in the path diagram in Figure 4. Self-control remained relatively stable across all three waves, with stability coefficients of β = .49 from Wave 2 to Wave 3 and β = .45 from Wave 1 to Wave 2. Peer support did not remain stable across the waves, as indicated by the change in stability coefficients: β = 0.26 from Wave 1 to Wave 2, and β = -0.34 from Wave 2 to Wave 3.
 
