@@ -112,51 +112,49 @@ The final sample size comprised 467 participants after removing outliers and exc
 
 The correlations between environmental support variables and emotional and behavioral outcomes are summarized in Table 1. Specifically, emotional symptoms exhibited weak, decreasing correlations with parental support at each wave (Wave 1:  r = 0.03; Wave 2: r = -0.02; Wave 3: r = -0.12 ). Self-control displayed consistent positive correlations with parental support at each wave (Wave 1: r = 0.32, p \< .001; Wave 2: r = 0.27, p \< .001; Wave 3: r = 0.23, p \< .001). 
 
-Whereas, emotional symptoms exhibited positive correlations with peer support (more lonliness) at each wave (Wave 1: r = 0.26, p \< .001; Wave 2: r = 0.25, p \< .001; Wave 3: r = 0.20, p \< .001), self-control displayed significant negative correlations with peer support (less loneliness) in waves 1 and 2 (Wave 1: r = -0.34, p \< .001; Wave 2: r = -0.16, p \< .001; Wave 3: r = -0.17, p \< .01). 
+Whereas, emotional symptoms exhibited positive correlations with less peer support (more lonliness) at each wave (Wave 1: r = 0.26, p \< .001; Wave 2: r = 0.25, p \< .001; Wave 3: r = 0.20, p \< .001), self-control displayed significant negative correlations with less peer support (less loneliness) in waves 1 and 2 (Wave 1: r = -0.34, p \< .001; Wave 2: r = -0.16, p \< .001; Wave 3: r = -0.17, p \< .01). 
 
 ## Cross-lag Models
 
-### i. Parental Support on Emotional Outcome
+### i. Parental Warmth on Emotional Outcome
 
-Model comparison indicates that the unrestricted model fits the observed data better than the unrestricted model, so the unrestricted model is preferred.
+Model comparison using Chi-Squared Difference Test, AIC, and BIC values show that the restricted model is preferred because the unrestricted model does not have a significantly better fit, and the restricted model has fewer parameters and better parsimony.
 
 ![**Figure 1. Cross-Lag Model on the relationships between parental warmth and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_1.png)
 
-\n The relationship between parental support and self-control is shown in the path diagram in Figure 1. Self-control remained relatively stable across all three waves (Wave 2: β = .47, p \< .001; Wave 3: β = .48, p \< .001). However, no covariances and cross-lagged effect between parental support and self-control at any wave was significant.
+\n The relationship between parental warmth and self-control is shown in the path diagram in Figure 1. Both parental warmth (Wave 2: β = .45, p \< .001; Wave 3: β = .52, p \< .001) and emotion (Wave 2: β = .45, p \< .001; Wave 3: β = .47, p \< .001) remained relatively stable across all three waves. However, no co-variances and cross-lagged effect between parental warmth and self-control at any wave was significant.
 
 ### ii. Parental Support on Self-Control
 
-Model comparison indicates that the unrestricted model fits the observed data better than the unrestricted model, so the unrestricted model is preferred.
+Model comparison using Chi-Squared Difference Test, AIC, and BIC values show that the restricted model is preferred because the unrestricted model does not have a significantly better fit, and the restricted model has fewer parameters and better parsimony.
 
 ![**Figure 2. Cross-Lag Model on the relationships between parental warmth and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_2.png)
 
-\n Self-control exhibited stability across waves (Wave 2: β = 0.47, p \< .001; Wave 3: β = 0.48, p \< .001), indicating that self-control remains relatively stable over time.
-
-The relationship between parental support and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (Wave 2: β = .47, p \< .001; Wave 3: β = .48, p \< .001).
+\n The relationship between parental warmth and self-control is shown in the path diagram in Figure 2. Self-control remained relatively stable across all three waves (Wave 2: β = .49, p \< .001; Wave 3: β = .46, p \< .001).
 
 A significant positive covariance is shown between parental warmth and self-control at each wave (Wave 1: β = .32, p \< .001; Wave 2: β = .27, p \< .001; Wave 3: β = .16, p = .013). However, no cross-lagged effect between parental support and self-control at any wave was significant.
 
 ### iii. Peer Support on Emotional Outcome
 
-Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
+Based on the Chi-Squared Difference Test, AIC, and BIC values, the unrestricted model is preferred because it has significantly better fit (p\< .001) compared to the restricted model.
 
 ![**Figure 3. Cross-Lag Model on the relationships between peer support and emotional outcomes across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_3.png)
 
-\n The relationship between peer support and emotional symptoms is shown in the path diagram in Figure 3. Emotional symptoms remained relatively stable for variable stability across all three waves, with stability coefficients of β = .46 from Wave 2 to Wave 3 and β = .47 from Wave 1 to Wave 2. On the other hand, peer support was not stable across waves, with stability coefficients of β = .30 from Wave 1 to Wave 2 and β = -.39 from Wave 2 to Wave 3.
+\n The relationship between less peer support and emotional symptoms is shown in the path diagram in Figure 3. Emotional symptoms remained relatively stable for variable stability across all three waves, with stability coefficients of β = .46 from Wave 2 to Wave 3 and β = .47 from Wave 1 to Wave 2. On the other hand, peer support was not stable across waves, with stability coefficients of β = .30 from Wave 1 to Wave 2 and β = -.39 from Wave 2 to Wave 3.
 
-A significant positive covariance is also shown between peer support and emotion at each wave (Wave 1: β = .24, p \< .001; Wave 2: β = .22, p \< .001; Wave 3: β = .23, p \< .001).
+A significant positive covariance is also shown between less peer support and emotion at each wave (Wave 1: β = .24, p \< .001; Wave 2: β = .22, p \< .001; Wave 3: β = .23, p \< .001).
 
-For the cross-lagged effects, emotional symptoms at Wave 2 were positively associated with peer support at Wave 3 (β = .12, p = .03). This effect is unidirectional because peer support at Wave 2 was not significantly associated with emotional symptoms at Wave 3 (β = -.03, p = .56). However, emotional symptoms at Wave 1 were not significantly associated with peer support at Wave 2 (β = -.02, p = .68), nor was the reverse effect, peer support at Wave 1, not significantly associated with emotional symptoms at Wave 2 (β = .01, p = .92).
+For the cross-lagged effects, emotional symptoms at Wave 2 were positively associated with less peer support at Wave 3 (β = .12, p = .03). This effect is unidirectional because peer support at Wave 2 was not significantly associated with emotional symptoms at Wave 3 (β = -.03, p = .56). However, emotional symptoms at Wave 1 were not significantly associated with less peer support at Wave 2 (β = -.02, p = .68), nor was the reverse effect, where less peer support at Wave 1 was not significantly associated with emotional symptoms at Wave 2 (β = .01, p = .92).
 
 ### iv. Parental Support on Self-Control
 
-Model comparison indicates that the restricted model fits the observed data significantly worse than the unrestricted model (p \<.001), so the unrestricted model is preferred.
+Based on the Chi-Squared Difference Test, AIC, and BIC values, the unrestricted model is preferred because it has significantly better fit (p\< .001) compared to the restricted model.
 
 ![**Figure 4. Cross-Lag Model on the relationships between peer support and self-control across the transition from primary school (wave 1) to the first (wave 2) and second year (wave 3) of secondary school**](plots/clm_4.png)
 
-\n The relationship between peer support and self-control is shown in the path diagram in Figure 4. Self-control remained relatively stable across all three waves, with stability coefficients of β = .49 from Wave 2 to Wave 3 and β = .45 from Wave 1 to Wave 2. Peer support did not remain stable across the waves, as indicated by the change in stability coefficients: β = 0.26 from Wave 1 to Wave 2, and β = -0.34 from Wave 2 to Wave 3.
+\n The relationship between less peer support and self-control is shown in the path diagram in Figure 4. Self-control remained relatively stable across all three waves, with stability coefficients of β = .49 from Wave 2 to Wave 3 and β = .45 from Wave 1 to Wave 2. Peer support did not remain stable across the waves, as indicated by the change in stability coefficients: β = 0.26 from Wave 1 to Wave 2, and β = -0.34 from Wave 2 to Wave 3.
 
-While there was is a significant negative covariance between peer support and self-control in the final year of primary school (β = -.33, p \< .001), the negative covariance was not significant from transition to the first and second years of secondary school (Wave 2: β = -.07, p = .28; Wave 3: β = .-.11, p =.06). No cross-lagged effect between peer support and self-control at any wave was significant.
+While there was is a significant negative covariance between less peer support and self-control in the final year of primary school (β = -.33, p \< .001), the negative covariance was not significant from transition in the first term of Year 7 to the end of Year 7 (Wave 2: β = -.07, p = .28; Wave 3: β = .-.11, p =.06). No cross-lagged effect between less peer support and self-control at any wave was significant.
 
 # 4. Discussion
 

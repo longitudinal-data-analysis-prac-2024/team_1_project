@@ -400,14 +400,14 @@ m1_rs <- "parental_warmth_w3 ~ 1 + emotion_w2 + a*parental_warmth_w2
 m1_rs <- sem(m1_rs, data = final_df_clean)
 summary(m1_rs)
 
-stand_m1 <- standardizedsolution(m1_urs)
+stand_m1 <- standardizedsolution(m1_rs)
 stand_m1
 
 anova(m1_urs, m1_rs) 
 #Chi-square indicates that restricted model is not significantly better, so keep the urs model. 
 
 #final clm:
-m1_clm <- sem(m1_urs, data = final_df_clean, estimator = "MLR")
+m1_clm <- sem(m1_rs, data = final_df_clean, estimator = "MLR")
 summary(m1_clm, fit.measures = TRUE, standardized = TRUE)
 
 #---------- SEM: parental warmth vs self-control -----------------
@@ -438,11 +438,11 @@ summary(m2_rs)
 anova(m2_urs, m2_rs) 
 #Chi-square indicates that restricted model is not significantly better, so keep the urs model. 
 
-stand_m2 <- standardizedsolution(m2_urs)
+stand_m2 <- standardizedsolution(m2_rs)
 stand_m2
 
 #final clm:
-m2_clm <- sem(m2_urs, data = final_df_clean, estimator = "MLR")
+m2_clm <- sem(m2_rs, data = final_df_clean, estimator = "MLR")
 summary(m2_clm, fit.measures = TRUE, standardized = TRUE)
 
 #---------- SEM: peer support vs emotional symptoms -----------------
