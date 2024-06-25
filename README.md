@@ -9,7 +9,7 @@ output:
 
 # 1. Background Information
 
-The transition from primary to secondary school is a pivotal period marked by substantial changes in the school environment, social interactions, and academic expectations, as it can affect students' health outcomes and development (Zeedyk et al., 2003). Plenty of past literature has shown that support from parents and friends influences both emotional and behavioral outcomes during transition.  
+The transition from primary to secondary school is a pivotal period marked by substantial changes in the school environment, social interactions, and academic expectations, as it can affect students' health outcomes and development (Zeedyk et al., 2003). Plenty of past literature has shown that support from parents and friends influences both emotional and behavioral outcomes during transition.
 
 Specially, Many studies have found that both of them could at as protective factors over emotional problems: Higher levels of parental warmth predicted lower internalizing scores and reduced subgenual anterior cingulate (sgACC) responses in adolescents to criticism during fMRI scans (Butterfield et al., 2020); Likewise, imagination of peer support was more effective than self-reflections in reducing negative emotions and increasing brain social support network including dorsomedial prefrontal cortex (DMPFC), precuneus, temporoparietal junction (TPJ), and the superior frontal gyrus (Pei et al., 2023). As for behavioral outcome, parental and peer support may be beneficial to the development of self-control: Children who live with both biological parents and are more attached to peers tended to have better self-control (Lorijn, 2024 ; Phythian et al., 2008).  
 
