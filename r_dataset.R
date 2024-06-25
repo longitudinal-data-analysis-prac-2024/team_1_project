@@ -10,12 +10,11 @@ library(dplyr)
 library(MVN)
 library(robustbase)
 library(ggcorrplot)
-
-
+library(webshot2)
 
 df <- read.spss("q1_dataset.sav", to.data.frame = T)
 
-#------------------ IV: Maternal Warmth-------------------------------------------
+#------------------ IV: Maternal Warmth ----------------------------------------
 recode_par <- function(df, columns) {
   for (col in columns) {
     col_sym <- ensym(col) 
@@ -375,27 +374,27 @@ final_total_participants
 library(lavaan)
 
 m1_urs <- "
-  parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
-  emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
   parental_warmth_w2 ~ 1 + emotion_w1 + parental_warmth_w1
+  parental_warmth_w3 ~ 1 + emotion_w2 + parental_warmth_w2
   emotion_w2 ~ 1 + parental_warmth_w1 + emotion_w1
+  emotion_w3 ~ 1 + parental_warmth_w2 + emotion_w2
 
+  parental_warmth_w1 ~~ emotion_w1
   parental_warmth_w2 ~~ emotion_w2
   parental_warmth_w3 ~~ emotion_w3
-  parental_warmth_w1 ~~ emotion_w1
 "
 
 m1_urs <- sem(m1_urs, data = final_df_clean)
 summary(m1_urs)
 
-m1_rs <- "parental_warmth_w3 ~ 1 + emotion_w2 + a*parental_warmth_w2
-          emotion_w3 ~ 1 + parental_warmth_w2 + b*emotion_w2
-          parental_warmth_w2 ~ 1 + emotion_w1 + a*parental_warmth_w1
+m1_rs <- "parental_warmth_w2 ~ 1 + emotion_w1 + a*parental_warmth_w1
+          parental_warmth_w3 ~ 1 + emotion_w2 + a*parental_warmth_w2
           emotion_w2 ~ 1 + parental_warmth_w1 + b*emotion_w1
+          emotion_w3 ~ 1 + parental_warmth_w2 + b*emotion_w2
 
+          parental_warmth_w1 ~~ emotion_w1
           parental_warmth_w2 ~~ emotion_w2
-          parental_warmth_w3 ~~ emotion_w3
-          parental_warmth_w1 ~~ emotion_w1"
+          parental_warmth_w3 ~~ emotion_w3"
 
 m1_rs <- sem(m1_rs, data = final_df_clean)
 summary(m1_rs)
@@ -539,7 +538,6 @@ plot_data <- data.frame(
   label = as.vector(cor_labels)
 )
 
-#-------------Plotting correlation matrix-----------------------------
 cor_vars <- final_df_clean[, c("parental_warmth_w1", "parental_warmth_w2", "parental_warmth_w3", "peer_support_w1", "peer_support_w2", "peer_support_w3", "emotion_w1", "emotion_w2", "emotion_w3", "self_control_w1", "self_control_w2", "self_control_w3")]
 
 correlation_result <- corr.test(cor_vars, use = "pairwise.complete.obs")
@@ -563,6 +561,116 @@ par(mar = c(12, 12, 4, 2)) # Adjust margins to prevent label cutoff
 corPlot(corr_matrix, upper = FALSE, numbers = TRUE, diag = FALSE, stars = TRUE, pval = p_matrix, 
         main = "Correlation Plot of All Variables Across the Three Waves", cex = 1.3, cex.axis = 1.3, xlas = 2)
 dev.off()
+#---------------------------CROSS LAG MODEL CORRELATIONS----------------------
+# Extract standardized solutions from the final models
+stand_m1_clm <- standardizedsolution(m1_clm)
+stand_m2_clm <- standardizedsolution(m2_clm)
+stand_m3_clm <- standardizedsolution(m3_clm)
+stand_m4_clm <- standardizedsolution(m4_clm)
+
+# Combine standardized solutions into one dataframe
+stand_combined <- bind_rows(
+  stand_m1_clm %>% mutate(model = "Parental Warmth - Emotional Symptoms"),
+  stand_m2_clm %>% mutate(model = "Parental Warmth - Self-Control"),
+  stand_m3_clm %>% mutate(model = "Peer Support - Emotional Symptoms"),
+  stand_m4_clm %>% mutate(model = "Peer Support - Self-Control")
+)
+
+# Select relevant columns
+stand_combined <- stand_combined %>%
+  select(model, rhs, lhs, est.std, pvalue, op) %>%
+  rename(Model = model, Predictor = rhs, Outcome = lhs, `Standardized Beta` = est.std, `P-Value` = pvalue, Type = op)
+
+# Add significance stars based on p-value
+stand_combined <- stand_combined %>%
+  mutate(Significance = case_when(
+    `P-Value` < 0.001 ~ "***",
+    `P-Value` < 0.01 ~ "**",
+    `P-Value` < 0.05 ~ "*",
+    TRUE ~ ""
+  ))
+
+# Set empty values for intercepts and specify type
+stand_combined <- stand_combined %>%
+  mutate(Predictor = ifelse(Type == "~1", "", Predictor),
+         Type = case_when(
+           Type == "~" ~ "Regression",
+           Type == "~~" ~ "Covariance",
+           Type == "~1" ~ "Intercept",
+           TRUE ~ Type
+         ))
+
+# Filter to ensure exactly three covariances per model
+filtered_covariances <- stand_combined %>%
+  filter(Type == "Covariance") %>%
+  group_by(Model) %>%
+  filter(row_number() <= 3) %>%
+  ungroup()
+
+# Combine with regression and intercepts
+stand_combined_filtered <- stand_combined %>%
+  filter(Type != "Covariance") %>%
+  bind_rows(filtered_covariances)
+
+# Separate the data for parental warmth and peer support
+parental_warmth_data <- stand_combined_filtered %>%
+  filter(grepl("Parental Warmth", Model))
+
+peer_support_data <- stand_combined_filtered %>%
+  filter(grepl("Peer Support", Model))
+
+# Function to format standardized beta values with 2 decimal places and stars
+format_beta <- function(beta, sig) {
+  formatted_beta <- sprintf("%.2f", beta)
+  return(paste0(formatted_beta, sig))
+}
+
+# Format the standardized beta values
+parental_warmth_data <- parental_warmth_data %>%
+  mutate(`Standardized Beta` = mapply(format_beta, `Standardized Beta`, Significance)) %>%
+  select(-Significance, -`P-Value`)
+
+peer_support_data <- peer_support_data %>%
+  mutate(`Standardized Beta` = mapply(format_beta, `Standardized Beta`, Significance)) %>%
+  select(-Significance, -`P-Value`)
+
+# Create the table for Parental Warmth
+parental_warmth_table <- parental_warmth_data %>%
+  arrange(Model, Type, Predictor, Outcome) %>%
+  gt(groupname_col = "Model") %>%
+  tab_header(
+    title = "Standardized Beta Coefficients of Cross-Lagged Models",
+    subtitle = "Parental Warmth: Emotional Symptoms and Self-Control"
+  ) %>%
+  cols_label(
+    Type = "Type",
+    Predictor = "Predictor",
+    Outcome = "Outcome",
+    `Standardized Beta` = "Standardized Beta"
+  )
+
+# Create the table for Peer Support
+peer_support_table <- peer_support_data %>%
+  arrange(Model, Type, Predictor, Outcome) %>%
+  gt(groupname_col = "Model") %>%
+  tab_header(
+    title = "Standardized Beta Coefficients of Cross-Lagged Models",
+    subtitle = "Peer Support: Emotional Symptoms and Self-Control"
+  ) %>%
+  cols_label(
+    Type = "Type",
+    Predictor = "Predictor",
+    Outcome = "Outcome",
+    `Standardized Beta` = "Standardized Beta"
+  )
+# Display the tables
+parental_warmth_table
+peer_support_table
+
+gtsave(parental_warmth_table, "../team_1_project/plots/parental_warmth_table.png")
+gtsave(peer_support_table, "../team_1_project/plots/peer_support_table.png")
+
+#-------------------CROSS LAG MODELS--------------------
 
 #visualisation matrix
 layout_1 <- matrix(c(
